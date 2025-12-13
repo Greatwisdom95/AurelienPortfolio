@@ -638,7 +638,7 @@ function App() {
                             <video
                                 id="arVideo"
                                 src="/assets/videos/AR 3D/5B2ECB90-3246-4ACA-875E-474480F6AA4F.mp4"
-                                autoPlay muted loop playsInline
+                                autoPlay muted loop playsInline preload="metadata"
                                 style={{ width: '100%', aspectRatio: '9/16', objectFit: 'cover', borderRadius: '12px' }}
                             />
                         </motion.div>
@@ -671,7 +671,7 @@ function App() {
                             <video
                                 id="foodVideo"
                                 src="/assets/videos/FoodBrand/Mr & Mrs Fries/1A54FC2C-6C0C-4A94-B579-B8D862F92921.MP4"
-                                autoPlay muted loop playsInline
+                                autoPlay muted loop playsInline preload="metadata"
                                 style={{ width: '100%', aspectRatio: '9/16', objectFit: 'cover', borderRadius: '12px' }}
                             />
                         </motion.div>
@@ -708,7 +708,7 @@ function App() {
                             <video
                                 id="motionVideo"
                                 src="/assets/videos/motion-design/Agrizex/agrizex-logo-1.mp4"
-                                autoPlay muted loop playsInline
+                                autoPlay muted loop playsInline preload="metadata"
                                 style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', borderRadius: '12px' }}
                             />
                         </motion.div>
@@ -741,7 +741,7 @@ function App() {
                             <video
                                 id="websiteVideo"
                                 src="/assets/videos/FullStackWebsite/jolisite website (1).mp4"
-                                autoPlay muted loop playsInline
+                                autoPlay muted loop playsInline preload="metadata"
                                 style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', borderRadius: '12px' }}
                             />
                         </motion.div>
@@ -762,17 +762,18 @@ function App() {
                     </div>
                     <MarqueeText speed={40}>
                         {[
-                            '/assets/Images/ClothesBrand/Mokonzi/Mokonzi_00006_.png',
-                            '/assets/Images/ClothesBrand/Mokonzi/ComfyUI_00336_.png',
-                            '/assets/Images/ClothesBrand/Mokonzi/ComfyUI_00338_.png',
-                            '/assets/Images/ClothesBrand/Mokonzi/ComfyUI_00339_.png',
-                            '/assets/Images/ClothesBrand/Mokonzi/ComfyUI_00374_.png',
-                            '/assets/Images/ClothesBrand/Mokonzi/ComfyUI_00383_.png',
+                            '/assets/Images/ClothesBrand/Mokonzi/Mokonzi_00006_.webp',
+                            '/assets/Images/ClothesBrand/Mokonzi/ComfyUI_00336_.webp',
+                            '/assets/Images/ClothesBrand/Mokonzi/ComfyUI_00338_.webp',
+                            '/assets/Images/ClothesBrand/Mokonzi/ComfyUI_00339_.webp',
+                            '/assets/Images/ClothesBrand/Mokonzi/ComfyUI_00374_.webp',
+                            '/assets/Images/ClothesBrand/Mokonzi/ComfyUI_00383_.webp',
                         ].map((src, i) => (
                             <img
                                 key={i}
                                 src={src}
                                 alt={`Mokonzi ${i}`}
+                                loading="lazy"
                                 style={{
                                     height: '400px',
                                     width: 'auto',
@@ -798,15 +799,16 @@ function App() {
                     </div>
                     <MarqueeText speed={35}>
                         {[
-                            '/assets/Images/DrinksBrand/Brasimba/ComfyUI_00098_.png',
-                            '/assets/Images/DrinksBrand/Brasimba/ComfyUI_00069_.png',
-                            '/assets/Images/DrinksBrand/Brasimba/ComfyUI_00098_.png',
-                            '/assets/Images/DrinksBrand/Brasimba/ComfyUI_00069_.png',
+                            '/assets/Images/DrinksBrand/Brasimba/ComfyUI_00098_.webp',
+                            '/assets/Images/DrinksBrand/Brasimba/ComfyUI_00069_.webp',
+                            '/assets/Images/DrinksBrand/Brasimba/ComfyUI_00098_.webp',
+                            '/assets/Images/DrinksBrand/Brasimba/ComfyUI_00069_.webp',
                         ].map((src, i) => (
                             <img
                                 key={i}
                                 src={src}
                                 alt={`Brasimba ${i}`}
+                                loading="lazy"
                                 style={{
                                     height: '350px',
                                     width: 'auto',
@@ -832,15 +834,16 @@ function App() {
                     </div>
                     <MarqueeText speed={30}>
                         {[
-                            '/assets/Images/ClothesBrand/LubumArt/ComfyUI_00138_.png',
-                            '/assets/Images/ClothesBrand/LubumArt/ComfyUI_00169_.png',
-                            '/assets/Images/ClothesBrand/LubumArt/ComfyUI_00138_.png',
-                            '/assets/Images/ClothesBrand/LubumArt/ComfyUI_00169_.png',
+                            '/assets/Images/ClothesBrand/LubumArt/ComfyUI_00138_.webp',
+                            '/assets/Images/ClothesBrand/LubumArt/ComfyUI_00169_.webp',
+                            '/assets/Images/ClothesBrand/LubumArt/ComfyUI_00138_.webp',
+                            '/assets/Images/ClothesBrand/LubumArt/ComfyUI_00169_.webp',
                         ].map((src, i) => (
                             <img
                                 key={i}
                                 src={src}
                                 alt={`LubumArt ${i}`}
+                                loading="lazy"
                                 style={{
                                     height: '400px',
                                     width: 'auto',
