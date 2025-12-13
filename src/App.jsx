@@ -472,7 +472,7 @@ function App() {
                         <AnimatedText delay={0.4}>
                             <div style={{ borderLeft: '2px solid rgba(255,255,255,0.2)', paddingLeft: '2rem' }}>
                                 <h3 style={{ fontSize: '1.2rem', fontWeight: 600, marginBottom: '1rem', opacity: 0.9 }}>
-                                    🌍 Origins
+                                    Origins
                                 </h3>
                                 <p style={{ fontSize: '1rem', lineHeight: 1.9, opacity: 0.7 }}>
                                     Born and raised in <strong>Lubumbashi</strong>, I speak <strong>Swahili, French, and Lingala</strong>.
@@ -486,7 +486,7 @@ function App() {
                         <AnimatedText delay={0.5}>
                             <div style={{ borderLeft: '2px solid rgba(255,255,255,0.2)', paddingLeft: '2rem' }}>
                                 <h3 style={{ fontSize: '1.2rem', fontWeight: 600, marginBottom: '1rem', opacity: 0.9 }}>
-                                    🎨 Journey
+                                    Journey
                                 </h3>
                                 <p style={{ fontSize: '1rem', lineHeight: 1.9, opacity: 0.7 }}>
                                     From <strong>traditional painting</strong> to <strong>AI-powered creation</strong>,
@@ -500,7 +500,7 @@ function App() {
                         <AnimatedText delay={0.6}>
                             <div style={{ borderLeft: '2px solid rgba(255,255,255,0.2)', paddingLeft: '2rem' }}>
                                 <h3 style={{ fontSize: '1.2rem', fontWeight: 600, marginBottom: '1rem', opacity: 0.9 }}>
-                                    🚀 Impact
+                                    Impact
                                 </h3>
                                 <p style={{ fontSize: '1rem', lineHeight: 1.9, opacity: 0.7 }}>
                                     With AI as my ally, I deliver the output of <strong>20-30 professionals</strong>.
@@ -571,8 +571,10 @@ function App() {
             </section>
 
             {/* ========== WORK SECTION ========== */}
-            <section style={{ ...styles.section, flexDirection: 'column', gap: '4rem' }}>
-                <div style={{ maxWidth: '1200px', width: '100%', margin: '0 auto' }}>
+            <section style={{ ...styles.section, flexDirection: 'column', gap: '6rem', padding: '8rem 0' }}>
+
+                {/* Section Header */}
+                <div style={{ maxWidth: '1200px', width: '100%', margin: '0 auto', padding: '0 5vw' }}>
                     <AnimatedText>
                         <span style={{
                             fontSize: '0.8rem',
@@ -589,165 +591,267 @@ function App() {
                         <h2 style={{
                             fontSize: 'clamp(2rem, 5vw, 3.5rem)',
                             fontWeight: 600,
-                            marginBottom: '4rem',
+                            marginBottom: '2rem',
                         }}>
                             Projects
                         </h2>
                     </AnimatedText>
+                </div>
 
-                    {/* ========== FEATURED PROJECT (AR/3D) ========== */}
-                    <AnimatedText delay={0.2}>
+                {/* ===== UNIFIED VIDEO GRID ===== */}
+                <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: '350px 1fr',
+                    gap: '2rem',
+                    width: '100%',
+                    maxWidth: '1400px',
+                    margin: '0 auto',
+                    padding: '0 5vw',
+                }}>
+                    {/* LEFT COLUMN - Portrait Videos */}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
+
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
+                            initial={{ opacity: 0, x: -50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 1 }}
-                            style={{
-                                width: '100%',
-                                aspectRatio: '21/9',
-                                background: '#0a0a0a',
-                                borderRadius: '16px',
-                                position: 'relative',
-                                overflow: 'hidden',
-                                marginBottom: '3rem',
-                                border: '1px solid rgba(255,255,255,0.08)',
-                            }}
                         >
-                            <video
-                                src="/assets/videos/AR 3D/5B2ECB90-3246-4ACA-875E-474480F6AA4F.mp4"
-                                autoPlay
-                                muted
-                                loop
-                                playsInline
-                                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                            />
-                            <div style={{
-                                position: 'absolute',
-                                bottom: 0,
-                                left: 0,
-                                right: 0,
-                                padding: '3rem',
-                                background: 'linear-gradient(to top, rgba(0,0,0,0.95), transparent)',
-                            }}>
-                                <span style={{
-                                    fontSize: '0.75rem',
-                                    textTransform: 'uppercase',
-                                    letterSpacing: '0.15em',
-                                    opacity: 0.7,
-                                    display: 'block',
-                                    marginBottom: '0.5rem',
-                                }}>
-                                    AR / 3D — Gaussian Splatting
-                                </span>
-                                <h3 style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', fontWeight: 700, margin: 0 }}>
-                                    Immersive 3D Capture
-                                </h3>
-                                <p style={{ fontSize: '1rem', opacity: 0.6, marginTop: '0.5rem', maxWidth: '500px' }}>
-                                    Luma AI Gaussian Splatting composition for spatial computing experiences.
-                                </p>
-                            </div>
-                        </motion.div>
-                    </AnimatedText>
-
-                    {/* ========== PROJECT GRID ========== */}
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(450px, 1fr))', gap: '2rem' }}>
-                        {[
-                            {
-                                title: 'Agrizex Motion',
-                                category: 'Motion Design',
-                                video: '/assets/videos/motion-design/agrizex-logo-1.mp4',
-                                description: 'Logo animation & brand identity',
-                                year: '2024'
-                            },
-                            {
-                                title: 'Mokonzi Fashion',
-                                category: 'AI Branding',
-                                gallery: [
-                                    '/assets/Images/ClothesBrand/Mokonzi/Mokonzi_00006_.png',
-                                    '/assets/Images/ClothesBrand/Mokonzi/ComfyUI_00336_.png',
-                                    '/assets/Images/ClothesBrand/Mokonzi/ComfyUI_00338_.png',
-                                    '/assets/Images/ClothesBrand/Mokonzi/ComfyUI_00339_.png',
-                                    '/assets/Images/ClothesBrand/Mokonzi/ComfyUI_00374_.png',
-                                    '/assets/Images/ClothesBrand/Mokonzi/ComfyUI_00383_.png',
-                                ],
-                                description: 'AI-generated fashion visuals',
-                                year: '2024'
-                            },
-                            {
-                                title: 'Brasimba Campaign',
-                                category: 'Visual Identity',
-                                gallery: [
-                                    '/assets/Images/DrinksBrand/Brasimba/ComfyUI_00098_.png',
-                                    '/assets/Images/DrinksBrand/Brasimba/ComfyUI_00069_.png',
-                                ],
-                                description: 'Beverage brand imagery',
-                                year: '2023'
-                            },
-                            {
-                                title: 'LubumArt Identity',
-                                category: 'AI Branding',
-                                gallery: [
-                                    '/assets/Images/ClothesBrand/LubumArt/ComfyUI_00138_.png',
-                                    '/assets/Images/ClothesBrand/LubumArt/ComfyUI_00169_.png',
-                                ],
-                                description: 'Local fashion brand visuals',
-                                year: '2023'
-                            }
-                        ].map((project, i) => (
-                            <motion.div
-                                key={project.title}
-                                initial={{ opacity: 0, y: 60 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, margin: '-50px' }}
-                                transition={{ duration: 0.9, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                            >
-                                {/* Media Container */}
-                                <motion.div
-                                    whileHover={{ scale: 1.02, y: -5 }}
-                                    transition={{ duration: 0.4 }}
-                                    style={{
-                                        aspectRatio: '16/10',
-                                        background: '#111',
-                                        borderRadius: '12px',
-                                        position: 'relative',
-                                        overflow: 'hidden',
-                                        cursor: 'pointer',
-                                        border: '1px solid rgba(255,255,255,0.05)',
-                                    }}
-                                >
-                                    {project.video ? (
-                                        <video
-                                            src={project.video}
-                                            autoPlay
-                                            muted
-                                            loop
-                                            playsInline
-                                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                                        />
-                                    ) : project.gallery ? (
-                                        <InfiniteMarquee images={project.gallery} speed={25} />
-                                    ) : null}
-                                </motion.div>
-
-                                {/* Text Below Card (CV Style) */}
-                                <div style={{ marginTop: '1.5rem' }}>
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                                        <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5 }}>
-                                            {project.category}
-                                        </span>
-                                        <span style={{ fontSize: '0.8rem', opacity: 0.4 }}>{project.year}</span>
-                                    </div>
-                                    <h3 style={{ fontSize: '1.4rem', fontWeight: 600, margin: 0 }}>
-                                        {project.title}
+                            <div style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                                <div>
+                                    <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5 }}>
+                                        AR / 3D
+                                    </span>
+                                    <h3 style={{ fontSize: '1.2rem', fontWeight: 600, marginTop: '0.3rem' }}>
+                                        Immersive 3D Capture
                                     </h3>
-                                    <p style={{ fontSize: '0.95rem', opacity: 0.6, marginTop: '0.5rem' }}>
-                                        {project.description}
-                                    </p>
                                 </div>
-                            </motion.div>
-                        ))}
+                                <button
+                                    onClick={() => { document.getElementById('arVideo').muted = !document.getElementById('arVideo').muted; }}
+                                    style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', opacity: 0.5, padding: '4px' }}
+                                >
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                        <path d="M11 5L6 9H2v6h4l5 4V5z" /><path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <video
+                                id="arVideo"
+                                src="/assets/videos/AR 3D/5B2ECB90-3246-4ACA-875E-474480F6AA4F.mp4"
+                                autoPlay muted loop playsInline
+                                style={{ width: '100%', aspectRatio: '9/16', objectFit: 'cover', borderRadius: '12px' }}
+                            />
+                        </motion.div>
+
+                        {/* Food Branding - Portrait */}
+                        <motion.div
+                            initial={{ opacity: 0, x: -50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 1, delay: 0.2 }}
+                        >
+                            <div style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                                <div>
+                                    <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5 }}>
+                                        Food Branding
+                                    </span>
+                                    <h3 style={{ fontSize: '1.2rem', fontWeight: 600, marginTop: '0.3rem' }}>
+                                        Mr & Mrs Fries
+                                    </h3>
+                                </div>
+                                <button
+                                    onClick={() => { document.getElementById('foodVideo').muted = !document.getElementById('foodVideo').muted; }}
+                                    style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', opacity: 0.5, padding: '4px' }}
+                                >
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                        <path d="M11 5L6 9H2v6h4l5 4V5z" /><path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <video
+                                id="foodVideo"
+                                src="/assets/videos/FoodBrand/Mr & Mrs Fries/1A54FC2C-6C0C-4A94-B579-B8D862F92921.MP4"
+                                autoPlay muted loop playsInline
+                                style={{ width: '100%', aspectRatio: '9/16', objectFit: 'cover', borderRadius: '12px' }}
+                            />
+                        </motion.div>
+                    </div>
+
+                    {/* RIGHT COLUMN - Landscape Videos */}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
+
+                        {/* Motion Design - Landscape */}
+                        <motion.div
+                            initial={{ opacity: 0, x: 50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 1 }}
+                        >
+                            <div style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                                <div>
+                                    <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5 }}>
+                                        Motion Design
+                                    </span>
+                                    <h3 style={{ fontSize: '1.2rem', fontWeight: 600, marginTop: '0.3rem' }}>
+                                        Logo Animation
+                                    </h3>
+                                </div>
+                                <button
+                                    onClick={() => { document.getElementById('motionVideo').muted = !document.getElementById('motionVideo').muted; }}
+                                    style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', opacity: 0.5, padding: '4px' }}
+                                >
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                        <path d="M11 5L6 9H2v6h4l5 4V5z" /><path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <video
+                                id="motionVideo"
+                                src="/assets/videos/motion-design/Agrizex/agrizex-logo-1.mp4"
+                                autoPlay muted loop playsInline
+                                style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', borderRadius: '12px' }}
+                            />
+                        </motion.div>
+
+                        {/* Website - Landscape with Sound */}
+                        <motion.div
+                            initial={{ opacity: 0, x: 50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 1, delay: 0.2 }}
+                        >
+                            <div style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                                <div>
+                                    <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5 }}>
+                                        Web Development
+                                    </span>
+                                    <h3 style={{ fontSize: '1.2rem', fontWeight: 600, marginTop: '0.3rem' }}>
+                                        Website Showcase
+                                    </h3>
+                                </div>
+                                <button
+                                    onClick={() => { document.getElementById('websiteVideo').muted = !document.getElementById('websiteVideo').muted; }}
+                                    style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', opacity: 0.5, padding: '4px' }}
+                                >
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                        <path d="M11 5L6 9H2v6h4l5 4V5z" /><path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <video
+                                id="websiteVideo"
+                                src="/assets/videos/FullStackWebsite/jolisite website (1).mp4"
+                                autoPlay muted loop playsInline
+                                style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', borderRadius: '12px' }}
+                            />
+                        </motion.div>
                     </div>
                 </div>
+
+                {/* ===== AI BRANDING - Full Width Marquee ===== */}
+                <div style={{ width: '100%' }}>
+                    <div style={{ padding: '0 5vw', marginBottom: '2rem' }}>
+                        <AnimatedText>
+                            <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.15em', opacity: 0.5 }}>
+                                AI Branding — Mokonzi Fashion
+                            </span>
+                            <h3 style={{ fontSize: '1.5rem', fontWeight: 600, marginTop: '0.5rem' }}>
+                                AI-Generated Fashion Visuals
+                            </h3>
+                        </AnimatedText>
+                    </div>
+                    <MarqueeText speed={40}>
+                        {[
+                            '/assets/Images/ClothesBrand/Mokonzi/Mokonzi_00006_.png',
+                            '/assets/Images/ClothesBrand/Mokonzi/ComfyUI_00336_.png',
+                            '/assets/Images/ClothesBrand/Mokonzi/ComfyUI_00338_.png',
+                            '/assets/Images/ClothesBrand/Mokonzi/ComfyUI_00339_.png',
+                            '/assets/Images/ClothesBrand/Mokonzi/ComfyUI_00374_.png',
+                            '/assets/Images/ClothesBrand/Mokonzi/ComfyUI_00383_.png',
+                        ].map((src, i) => (
+                            <img
+                                key={i}
+                                src={src}
+                                alt={`Mokonzi ${i}`}
+                                style={{
+                                    height: '400px',
+                                    width: 'auto',
+                                    objectFit: 'cover',
+                                    marginRight: '1rem',
+                                }}
+                            />
+                        ))}
+                    </MarqueeText>
+                </div>
+
+                {/* ===== VISUAL IDENTITY - Full Width Marquee ===== */}
+                <div style={{ width: '100%' }}>
+                    <div style={{ padding: '0 5vw', marginBottom: '2rem' }}>
+                        <AnimatedText>
+                            <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.15em', opacity: 0.5 }}>
+                                Visual Identity — Brasimba
+                            </span>
+                            <h3 style={{ fontSize: '1.5rem', fontWeight: 600, marginTop: '0.5rem' }}>
+                                Beverage Brand Campaign
+                            </h3>
+                        </AnimatedText>
+                    </div>
+                    <MarqueeText speed={35}>
+                        {[
+                            '/assets/Images/DrinksBrand/Brasimba/ComfyUI_00098_.png',
+                            '/assets/Images/DrinksBrand/Brasimba/ComfyUI_00069_.png',
+                            '/assets/Images/DrinksBrand/Brasimba/ComfyUI_00098_.png',
+                            '/assets/Images/DrinksBrand/Brasimba/ComfyUI_00069_.png',
+                        ].map((src, i) => (
+                            <img
+                                key={i}
+                                src={src}
+                                alt={`Brasimba ${i}`}
+                                style={{
+                                    height: '350px',
+                                    width: 'auto',
+                                    objectFit: 'cover',
+                                    marginRight: '1rem',
+                                }}
+                            />
+                        ))}
+                    </MarqueeText>
+                </div>
+
+                {/* ===== AI BRANDING - LubumArt Marquee ===== */}
+                <div style={{ width: '100%' }}>
+                    <div style={{ padding: '0 5vw', marginBottom: '2rem' }}>
+                        <AnimatedText>
+                            <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.15em', opacity: 0.5 }}>
+                                AI Branding — LubumArt
+                            </span>
+                            <h3 style={{ fontSize: '1.5rem', fontWeight: 600, marginTop: '0.5rem' }}>
+                                Local Fashion Identity
+                            </h3>
+                        </AnimatedText>
+                    </div>
+                    <MarqueeText speed={30}>
+                        {[
+                            '/assets/Images/ClothesBrand/LubumArt/ComfyUI_00138_.png',
+                            '/assets/Images/ClothesBrand/LubumArt/ComfyUI_00169_.png',
+                            '/assets/Images/ClothesBrand/LubumArt/ComfyUI_00138_.png',
+                            '/assets/Images/ClothesBrand/LubumArt/ComfyUI_00169_.png',
+                        ].map((src, i) => (
+                            <img
+                                key={i}
+                                src={src}
+                                alt={`LubumArt ${i}`}
+                                style={{
+                                    height: '400px',
+                                    width: 'auto',
+                                    objectFit: 'cover',
+                                    marginRight: '1rem',
+                                }}
+                            />
+                        ))}
+                    </MarqueeText>
+                </div>
+
             </section>
 
             {/* ========== CONTACT SECTION ========== */}
