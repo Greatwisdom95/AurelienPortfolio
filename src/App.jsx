@@ -834,10 +834,11 @@ function App() {
                     </div>
                     <MarqueeText speed={30}>
                         {[
-                            '/assets/Images/ClothesBrand/LubumArt/ComfyUI_00138_.webp',
-                            '/assets/Images/ClothesBrand/LubumArt/ComfyUI_00169_.webp',
-                            '/assets/Images/ClothesBrand/LubumArt/ComfyUI_00138_.webp',
-                            '/assets/Images/ClothesBrand/LubumArt/ComfyUI_00169_.webp',
+                            '/assets/Images/ClothesBrand/LubumArt/KimomosOnGreen.webp',
+                            '/assets/Images/ClothesBrand/LubumArt/LubumArt_Fashion_01.webp',
+                            '/assets/Images/ClothesBrand/LubumArt/LubumArt_Fashion_02.webp',
+                            '/assets/Images/ClothesBrand/LubumArt/LubumArt_Fashion_03.webp',
+                            '/assets/Images/ClothesBrand/LubumArt/LubumArt_Fashion_04.webp',
                         ].map((src, i) => (
                             <img
                                 key={i}
