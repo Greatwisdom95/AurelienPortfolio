@@ -709,7 +709,7 @@ function App() {
                             </div>
                             <video
                                 id="motionVideo"
-                                src="/assets/videos/motion-design/agrizex/agrizex-logo-1.mp4"
+                                src="/assets/videos/motion-design/Agrizex/agrizex-logo-1.mp4"
                                 autoPlay muted loop playsInline preload="metadata"
                                 style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', borderRadius: '12px' }}
                             />
@@ -1381,7 +1381,7 @@ function App() {
                         </p>
                     </AnimatedText>
                     <AnimatedText delay={0.2}>
-                        <MagneticButton href="https://1drv.ms/x/c/9c6f3514f4638c89/IQDBG7OR0kZQR6O_liFLE8nNAfamZUYCET9Jaba8xyqWHQI?e=iEyZvu">
+                        <MagneticButton href="/assets/documents/ImmoRose_Rapport_Activite_2025.xlsx">
                             Access Full Report →
                         </MagneticButton>
                     </AnimatedText>
