@@ -78,70 +78,203 @@ const OptimizedImage = ({ src, alt, height = 400, aspectRatio = 'auto' }) => {
 }
 
 // ==================== OPTIMIZED VIDEO COMPONENT ====================
-const OptimizedVideo = ({ id, src, aspectRatio = '9/16', ariaLabel }) => {
+const OptimizedVideo = ({ id, src, aspectRatio = '9/16', title, subtitle }) => {
     const videoRef = useRef(null)
+    const containerRef = useRef(null)
     const [isInView, setIsInView] = useState(false)
-    const [isPlaying, setIsPlaying] = useState(false)
+    const [isLoaded, setIsLoaded] = useState(false)
+    const [isMuted, setIsMuted] = useState(true)
+    const [hasError, setHasError] = useState(false)
     const isMobile = useIsMobile()
     
+    // Intersection Observer pour lazy loading et autoplay
     useEffect(() => {
         const observer = new IntersectionObserver(
             ([entry]) => {
-                setIsInView(entry.isIntersecting)
-                if (entry.isIntersecting && videoRef.current) {
-                    videoRef.current.play().catch(() => {})
-                    setIsPlaying(true)
-                } else if (videoRef.current) {
-                    videoRef.current.pause()
-                    setIsPlaying(false)
+                if (entry.isIntersecting) {
+                    setIsInView(true)
                 }
             },
-            { threshold: 0.3 }
+            { rootMargin: '100px', threshold: 0.1 }
         )
-        if (videoRef.current) observer.observe(videoRef.current)
+        if (containerRef.current) observer.observe(containerRef.current)
         return () => observer.disconnect()
     }, [])
+    
+    // Play video when loaded and in view
+    useEffect(() => {
+        if (!videoRef.current || !isInView || !isLoaded) return
+        
+        const playVideo = async () => {
+            try {
+                videoRef.current.muted = true // Force muted for autoplay
+                await videoRef.current.play()
+            } catch (err) {
+                // Autoplay blocked - user needs to interact
+                console.log('Autoplay blocked, waiting for user interaction')
+            }
+        }
+        
+        playVideo()
+    }, [isInView, isLoaded])
+    
+    // Pause when out of view to save resources
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (videoRef.current && isLoaded) {
+                    if (entry.isIntersecting) {
+                        videoRef.current.play().catch(() => {})
+                    } else {
+                        videoRef.current.pause()
+                    }
+                }
+            },
+            { threshold: 0.1 }
+        )
+        if (containerRef.current) observer.observe(containerRef.current)
+        return () => observer.disconnect()
+    }, [isLoaded])
     
     const toggleMute = useCallback(() => {
         if (videoRef.current) {
             videoRef.current.muted = !videoRef.current.muted
+            setIsMuted(videoRef.current.muted)
+            // Try to play if paused (for mobile)
+            if (videoRef.current.paused) {
+                videoRef.current.play().catch(() => {})
+            }
+        }
+    }, [])
+    
+    const handleTap = useCallback(() => {
+        if (videoRef.current && videoRef.current.paused) {
+            videoRef.current.play().catch(() => {})
         }
     }, [])
     
     return (
-        <>
-            <video
-                ref={videoRef}
-                id={id}
-                src={isInView || !isMobile ? src : undefined}
-                poster={isMobile ? undefined : undefined}
-                autoPlay={!isMobile}
-                muted
-                loop
-                playsInline
-                preload={isMobile ? 'none' : 'metadata'}
-                style={{ width: '100%', aspectRatio, objectFit: 'cover', borderRadius: '12px' }}
-            />
-            <button
-                onClick={toggleMute}
-                aria-label={ariaLabel || 'Toggle video sound'}
+        <div ref={containerRef} style={{ position: 'relative' }}>
+            {/* Header */}
+            <div style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                <div>
+                    <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5 }}>
+                        {subtitle}
+                    </span>
+                    <h3 style={{ fontSize: '1.2rem', fontWeight: 600, marginTop: '0.3rem' }}>
+                        {title}
+                    </h3>
+                </div>
+                <button
+                    onClick={toggleMute}
+                    aria-label={isMuted ? 'Unmute video' : 'Mute video'}
+                    style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', opacity: 0.5, padding: '4px' }}
+                >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                        {isMuted ? (
+                            <><path d="M11 5L6 9H2v6h4l5 4V5z" /><path d="M15.54 8.46a5 5 0 0 1 0 7.07" /></>
+                        ) : (
+                            <><path d="M11 5L6 9H2v6h4l5 4V5z" /><path d="M15.54 8.46a5 5 0 0 1 0 7.07" /><path d="M19.07 4.93a10 10 0 0 1 0 14.14" /></>
+                        )}
+                    </svg>
+                </button>
+            </div>
+            
+            {/* Video Container */}
+            <div 
+                onClick={handleTap}
                 style={{ 
-                    background: 'none', 
-                    border: 'none', 
-                    color: '#fff', 
-                    cursor: 'pointer', 
-                    opacity: 0.5, 
-                    padding: '8px',
-                    position: 'absolute',
-                    top: '1rem',
-                    right: '1rem',
+                    position: 'relative', 
+                    aspectRatio, 
+                    borderRadius: '12px', 
+                    overflow: 'hidden',
+                    background: '#111',
+                    cursor: 'pointer',
                 }}
             >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                    <path d="M11 5L6 9H2v6h4l5 4V5z" /><path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
-                </svg>
-            </button>
-        </>
+                {/* Loading placeholder */}
+                {!isLoaded && !hasError && (
+                    <div style={{
+                        position: 'absolute',
+                        inset: 0,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        background: 'linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%)',
+                    }}>
+                        <div style={{
+                            width: '40px',
+                            height: '40px',
+                            border: '2px solid rgba(255,255,255,0.1)',
+                            borderTopColor: '#fff',
+                            borderRadius: '50%',
+                            animation: 'spin 1s linear infinite',
+                        }} />
+                    </div>
+                )}
+                
+                {/* Error state */}
+                {hasError && (
+                    <div style={{
+                        position: 'absolute',
+                        inset: 0,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        background: 'linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%)',
+                        color: 'rgba(255,255,255,0.5)',
+                        fontSize: '0.8rem',
+                    }}>
+                        <span style={{ marginBottom: '0.5rem' }}>▶</span>
+                        <span>Tap to play</span>
+                    </div>
+                )}
+                
+                {/* Video element - only render src when in view */}
+                {isInView && (
+                    <video
+                        ref={videoRef}
+                        id={id}
+                        muted
+                        loop
+                        playsInline
+                        webkit-playsinline="true"
+                        preload="auto"
+                        onLoadedData={() => setIsLoaded(true)}
+                        onError={() => setHasError(true)}
+                        onCanPlay={() => setIsLoaded(true)}
+                        style={{ 
+                            width: '100%', 
+                            height: '100%', 
+                            objectFit: 'cover',
+                            opacity: isLoaded ? 1 : 0,
+                            transition: 'opacity 0.3s ease',
+                        }}
+                    >
+                        <source src={src} type="video/mp4" />
+                    </video>
+                )}
+                
+                {/* Mobile play hint */}
+                {isMobile && isLoaded && (
+                    <div style={{
+                        position: 'absolute',
+                        bottom: '1rem',
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        background: 'rgba(0,0,0,0.7)',
+                        padding: '0.3rem 0.8rem',
+                        borderRadius: '20px',
+                        fontSize: '0.65rem',
+                        opacity: 0.7,
+                        pointerEvents: 'none',
+                    }}>
+                        Tap to play
+                    </div>
+                )}
+            </div>
+        </div>
     )
 }
 
@@ -755,143 +888,66 @@ function App() {
                 }}>
                     {/* LEFT COLUMN - Portrait Videos (on mobile: full width, shows first) */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
-
                         <motion.div
-                            initial={{ opacity: 0, x: -50 }}
+                            initial={{ opacity: 0, x: isMobile ? 0 : -50 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 1 }}
                         >
-                            <div style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-                                <div>
-                                    <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5 }}>
-                                        AR / 3D
-                                    </span>
-                                    <h3 style={{ fontSize: '1.2rem', fontWeight: 600, marginTop: '0.3rem' }}>
-                                        Immersive 3D Capture
-                                    </h3>
-                                </div>
-                                <button
-                                    onClick={() => { document.getElementById('arVideo').muted = !document.getElementById('arVideo').muted; }}
-                                    aria-label="Toggle AR 3D video sound"
-                                    style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', opacity: 0.5, padding: '4px' }}
-                                >
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                                        <path d="M11 5L6 9H2v6h4l5 4V5z" /><path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
-                                    </svg>
-                                </button>
-                            </div>
-                            <video
+                            <OptimizedVideo
                                 id="arVideo"
                                 src="/assets/videos/ar-3d/ar-3d-optimized.mp4"
-                                autoPlay muted loop playsInline preload="metadata"
-                                style={{ width: '100%', aspectRatio: '9/16', objectFit: 'cover', borderRadius: '12px' }}
+                                aspectRatio="9/16"
+                                subtitle="AR / 3D"
+                                title="Immersive 3D Capture"
                             />
                         </motion.div>
 
-                        {/* Food Branding - Portrait */}
                         <motion.div
-                            initial={{ opacity: 0, x: -50 }}
+                            initial={{ opacity: 0, x: isMobile ? 0 : -50 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 1, delay: 0.2 }}
                         >
-                            <div style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-                                <div>
-                                    <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5 }}>
-                                        Food Branding
-                                    </span>
-                                    <h3 style={{ fontSize: '1.2rem', fontWeight: 600, marginTop: '0.3rem' }}>
-                                        Mr & Mrs Fries
-                                    </h3>
-                                </div>
-                                <button
-                                    onClick={() => { document.getElementById('foodVideo').muted = !document.getElementById('foodVideo').muted; }}
-                                    aria-label="Toggle Food Branding video sound"
-                                    style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', opacity: 0.5, padding: '4px' }}
-                                >
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                                        <path d="M11 5L6 9H2v6h4l5 4V5z" /><path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
-                                    </svg>
-                                </button>
-                            </div>
-                            <video
+                            <OptimizedVideo
                                 id="foodVideo"
                                 src="/assets/videos/food-brand/mr-and-mrs-fries/fries-optimized.mp4"
-                                autoPlay muted loop playsInline preload="metadata"
-                                style={{ width: '100%', aspectRatio: '9/16', objectFit: 'cover', borderRadius: '12px' }}
+                                aspectRatio="9/16"
+                                subtitle="Food Branding"
+                                title="Mr & Mrs Fries"
                             />
                         </motion.div>
                     </div>
 
                     {/* RIGHT COLUMN - Landscape Videos */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
-
-                        {/* Motion Design - Landscape */}
                         <motion.div
-                            initial={{ opacity: 0, x: 50 }}
+                            initial={{ opacity: 0, x: isMobile ? 0 : 50 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 1 }}
                         >
-                            <div style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-                                <div>
-                                    <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5 }}>
-                                        Motion Design
-                                    </span>
-                                    <h3 style={{ fontSize: '1.2rem', fontWeight: 600, marginTop: '0.3rem' }}>
-                                        Logo Animation
-                                    </h3>
-                                </div>
-                                <button
-                                    onClick={() => { document.getElementById('motionVideo').muted = !document.getElementById('motionVideo').muted; }}
-                                    aria-label="Toggle Motion Design video sound"
-                                    style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', opacity: 0.5, padding: '4px' }}
-                                >
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                                        <path d="M11 5L6 9H2v6h4l5 4V5z" /><path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
-                                    </svg>
-                                </button>
-                            </div>
-                            <video
+                            <OptimizedVideo
                                 id="motionVideo"
                                 src="/assets/videos/motion-design/Agrizex/agrizex-logo-1.mp4"
-                                autoPlay muted loop playsInline preload="metadata"
-                                style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', borderRadius: '12px' }}
+                                aspectRatio="16/9"
+                                subtitle="Motion Design"
+                                title="Logo Animation"
                             />
                         </motion.div>
 
-                        {/* Website - Landscape with Sound */}
                         <motion.div
-                            initial={{ opacity: 0, x: 50 }}
+                            initial={{ opacity: 0, x: isMobile ? 0 : 50 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 1, delay: 0.2 }}
                         >
-                            <div style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-                                <div>
-                                    <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5 }}>
-                                        Web Development
-                                    </span>
-                                    <h3 style={{ fontSize: '1.2rem', fontWeight: 600, marginTop: '0.3rem' }}>
-                                        Website Showcase
-                                    </h3>
-                                </div>
-                                <button
-                                    onClick={() => { document.getElementById('websiteVideo').muted = !document.getElementById('websiteVideo').muted; }}
-                                    aria-label="Toggle Website video sound"
-                                    style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', opacity: 0.5, padding: '4px' }}
-                                >
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                                        <path d="M11 5L6 9H2v6h4l5 4V5z" /><path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
-                                    </svg>
-                                </button>
-                            </div>
-                            <video
+                            <OptimizedVideo
                                 id="websiteVideo"
                                 src="/assets/videos/full-stack-website/website-optimized.mp4"
-                                autoPlay muted loop playsInline preload="metadata"
-                                style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', borderRadius: '12px' }}
+                                aspectRatio="16/9"
+                                subtitle="Web Development"
+                                title="Website Showcase"
                             />
                         </motion.div>
                     </div>
@@ -1013,35 +1069,17 @@ function App() {
                     padding: '0 5vw',
                 }}>
                     <motion.div
-                        initial={{ opacity: 0, x: -50 }}
+                        initial={{ opacity: 0, x: isMobile ? 0 : -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 1 }}
                     >
-                        <div style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-                            <div>
-                                <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5 }}>
-                                    Brand Identity
-                                </span>
-                                <h3 style={{ fontSize: '1.2rem', fontWeight: 600, marginTop: '0.3rem' }}>
-                                    ImmoRose — Logo Animation
-                                </h3>
-                            </div>
-                            <button
-                                onClick={() => { document.getElementById('immoroseVideo').muted = !document.getElementById('immoroseVideo').muted; }}
-                                aria-label="Toggle ImmoRose video sound"
-                                style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', opacity: 0.5, padding: '4px' }}
-                            >
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                                    <path d="M11 5L6 9H2v6h4l5 4V5z" /><path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
-                                </svg>
-                            </button>
-                        </div>
-                        <video
+                        <OptimizedVideo
                             id="immoroseVideo"
                             src="/assets/videos/FeaturedCLIENTImmorose/Logo%20immorose%20animation/immorose-optimized.mp4"
-                            autoPlay muted loop playsInline preload="metadata"
-                            style={{ width: '100%', aspectRatio: '9/16', objectFit: 'cover', borderRadius: '12px' }}
+                            aspectRatio="9/16"
+                            subtitle="Brand Identity"
+                            title="ImmoRose — Logo Animation"
                         />
                     </motion.div>
 
@@ -1120,30 +1158,12 @@ function App() {
                         transition={{ duration: 1 }}
                         style={{ order: isMobile ? 1 : 2 }}
                     >
-                        <div style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-                            <div>
-                                <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5 }}>
-                                    Motion Design
-                                </span>
-                                <h3 style={{ fontSize: '1.2rem', fontWeight: 600, marginTop: '0.3rem' }}>
-                                    Miroir Mall — Logo Animation
-                                </h3>
-                            </div>
-                            <button
-                                onClick={() => { document.getElementById('miroirMallVideo').muted = !document.getElementById('miroirMallVideo').muted; }}
-                                aria-label="Toggle Miroir Mall video sound"
-                                style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', opacity: 0.5, padding: '4px' }}
-                            >
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                                    <path d="M11 5L6 9H2v6h4l5 4V5z" /><path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
-                                </svg>
-                            </button>
-                        </div>
-                        <video
+                        <OptimizedVideo
                             id="miroirMallVideo"
                             src="/assets/videos/FeaturedCLIENTImmorose/Logo%20Miroir%20mall%20animation/miroirmall-optimized.mp4"
-                            autoPlay muted loop playsInline preload="metadata"
-                            style={{ width: '100%', aspectRatio: '9/16', objectFit: 'cover', borderRadius: '12px' }}
+                            aspectRatio="9/16"
+                            subtitle="Motion Design"
+                            title="Miroir Mall — Logo Animation"
                         />
                     </motion.div>
                 </div>
