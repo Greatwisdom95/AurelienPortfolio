@@ -231,7 +231,7 @@ const OptimizedVideo = ({ id, src, aspectRatio = '9/16', title, subtitle }) => {
                     loop
                     playsInline
                     webkit-playsinline="true"
-                    preload="metadata"
+                    preload={isInView ? 'auto' : 'metadata'}
                     onLoadedData={() => setIsLoaded(true)}
                     onError={() => setHasError(true)}
                     onCanPlay={() => setIsLoaded(true)}
@@ -598,6 +598,57 @@ function App() {
         { icon: '◈', title: 'Branding & Visual Identity' },
         { icon: '◈', title: 'Technical Training & Workshops' },
     ]
+
+    useEffect(() => {
+        const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection
+        const saveData = !!(conn && conn.saveData)
+        const effectiveType = conn && conn.effectiveType
+        const slowNetwork = effectiveType && (effectiveType === 'slow-2g' || effectiveType === '2g')
+
+        if (saveData || slowNetwork) return
+        if (!('serviceWorker' in navigator)) return
+
+        const criticalUrls = [
+            '/assets/videos/ar-3d/ar-3d-optimized.mp4',
+            '/assets/videos/food-brand/mr-and-mrs-fries/fries-optimized.mp4',
+            '/assets/videos/motion-design/Agrizex/agrizex-logo-1.mp4',
+            '/assets/videos/full-stack-website/website-optimized.mp4',
+        ]
+
+        const secondaryUrls = [
+            '/assets/videos/FeaturedCLIENTImmorose/Logo%20immorose%20animation/immorose-optimized.mp4',
+            '/assets/videos/FeaturedCLIENTImmorose/Logo%20Miroir%20mall%20animation/miroirmall-optimized.mp4',
+            '/assets/documents/ImmoRose_Rapport_Activite_2025.xlsx',
+        ]
+
+        const postToSw = async (urls) => {
+            try {
+                const reg = await navigator.serviceWorker.ready
+                if (reg && reg.active) {
+                    reg.active.postMessage({ type: 'PRECACHE_URLS', urls })
+                }
+            } catch (_) {
+                // best-effort
+            }
+        }
+
+        // Precache above-the-fold first
+        postToSw(criticalUrls)
+
+        // Then precache the rest when the browser is idle
+        const schedule = (cb) => {
+            if ('requestIdleCallback' in window) {
+                return window.requestIdleCallback(cb, { timeout: 4000 })
+            }
+            return window.setTimeout(cb, 1500)
+        }
+
+        const id = schedule(() => postToSw(secondaryUrls))
+        return () => {
+            if ('cancelIdleCallback' in window) window.cancelIdleCallback(id)
+            else clearTimeout(id)
+        }
+    }, [])
 
     return (
         <div ref={containerRef} style={styles.container}>

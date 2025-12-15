@@ -2,6 +2,7 @@
 const CACHE_NAME = 'aurelien-portfolio-v2';
 const STATIC_CACHE = 'static-v2';
 const DYNAMIC_CACHE = 'dynamic-v2';
+const PRECACHE_CACHE = 'precache-v2';
 
 // Assets to cache immediately
 const STATIC_ASSETS = [
@@ -25,12 +26,39 @@ self.addEventListener('activate', (event) => {
     caches.keys().then((keys) => {
       return Promise.all(
         keys
-          .filter((key) => key !== STATIC_CACHE && key !== DYNAMIC_CACHE)
+          .filter((key) => key !== STATIC_CACHE && key !== DYNAMIC_CACHE && key !== PRECACHE_CACHE)
           .map((key) => caches.delete(key))
       );
     })
   );
   self.clients.claim();
+});
+
+// Allow the app to ask the SW to precache assets (videos/images/docs) in the background.
+// This is intentionally best-effort (large video files may fail on some devices/networks).
+self.addEventListener('message', (event) => {
+  const data = event.data;
+  if (!data || data.type !== 'PRECACHE_URLS' || !Array.isArray(data.urls)) return;
+
+  event.waitUntil(
+    caches.open(PRECACHE_CACHE).then(async (cache) => {
+      // Cache sequentially to reduce network spikes.
+      for (const url of data.urls) {
+        try {
+          const req = new Request(url, { cache: 'reload' });
+          const existing = await cache.match(req);
+          if (existing) continue;
+          const res = await fetch(req);
+          // Avoid caching partial responses.
+          if (res && res.ok && res.status === 200) {
+            await cache.put(req, res.clone());
+          }
+        } catch (_) {
+          // Best-effort: ignore failures.
+        }
+      }
+    })
+  );
 });
 
 // Fetch event - serve from cache, fallback to network
