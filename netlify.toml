@@ -1,7 +1,7 @@
-# Netlify configuration
+# Netlify configuration - dist is pre-built in repo
 [build]
   publish = "dist"
-  command = "npm ci && npm run build"
+  # No build command needed - dist is already committed
 
 # Headers for proper MIME types
 [[headers]]
