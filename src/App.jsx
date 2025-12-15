@@ -450,6 +450,7 @@ const SkillItem = ({ icon, title, index }) => {
 function App() {
     const containerRef = useRef(null)
     const heroRef = useRef(null)
+    const isMobile = useIsMobile()
 
     const { scrollYProgress } = useScroll()
     const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 })
@@ -745,14 +746,14 @@ function App() {
                 {/* ===== UNIFIED VIDEO GRID ===== */}
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: '350px 1fr',
+                    gridTemplateColumns: isMobile ? '1fr' : '350px 1fr',
                     gap: '2rem',
                     width: '100%',
                     maxWidth: '1400px',
                     margin: '0 auto',
                     padding: '0 5vw',
                 }}>
-                    {/* LEFT COLUMN - Portrait Videos */}
+                    {/* LEFT COLUMN - Portrait Videos (on mobile: full width, shows first) */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
 
                         <motion.div
@@ -1004,7 +1005,7 @@ function App() {
                 {/* ===== IMMOROSE - Portrait Video (Left) + Text (Right) ===== */}
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: '350px 1fr',
+                    gridTemplateColumns: isMobile ? '1fr' : '350px 1fr',
                     gap: '2rem',
                     width: '100%',
                     maxWidth: '1400px',
@@ -1087,14 +1088,14 @@ function App() {
                 {/* ===== MIROIR MALL - Text (Left) + Portrait Video (Right) ===== */}
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: '1fr 350px',
+                    gridTemplateColumns: isMobile ? '1fr' : '1fr 350px',
                     gap: '2rem',
                     width: '100%',
                     maxWidth: '1400px',
                     margin: '0 auto',
                     padding: '0 5vw',
                 }}>
-                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', order: isMobile ? 2 : 1 }}>
                         <AnimatedText>
                             <h3 style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', fontWeight: 700, marginBottom: '1.5rem', lineHeight: 1.1 }}>
                                 <SplitText delay={0.2}>Miroir Mall</SplitText>
@@ -1113,10 +1114,11 @@ function App() {
                     </div>
 
                     <motion.div
-                        initial={{ opacity: 0, x: 50 }}
+                        initial={{ opacity: 0, x: isMobile ? 0 : 50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 1 }}
+                        style={{ order: isMobile ? 1 : 2 }}
                     >
                         <div style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
                             <div>
