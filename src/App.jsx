@@ -322,6 +322,7 @@ function App() {
         'Automation Architect',
         'Full-Stack Builder',
         'Data & Management Analyst',
+        'Technical Trainer',
     ]
 
     const skills = [
@@ -331,6 +332,7 @@ function App() {
         { icon: '◈', title: 'Data Analysis & Management (Excel/VBA)' },
         { icon: '◈', title: '3D Visualization & VR' },
         { icon: '◈', title: 'Branding & Visual Identity' },
+        { icon: '◈', title: 'Technical Training & Workshops' },
     ]
 
     return (
@@ -475,7 +477,7 @@ function App() {
                                     Origins
                                 </h3>
                                 <p style={{ fontSize: '1rem', lineHeight: 1.9, opacity: 0.7 }}>
-                                    Born and raised in <strong>Lubumbashi</strong>, I speak <strong>Swahili, French, and Lingala</strong>.
+                                    Born and raised in <strong>Lubumbashi</strong>, I speak <strong>Swahili, French, and English</strong>.
                                     My local roots give me a unique perspective — I understand my community deeply
                                     and bridge worlds between tradition and innovation.
                                 </p>
@@ -858,6 +860,540 @@ function App() {
 
             </section>
 
+            {/* ========== FEATURED CLIENT SECTION - IMMOROSE/MIROIRMALL ========== */}
+            <section style={{ ...styles.section, flexDirection: 'column', gap: '6rem', padding: '8rem 0' }}>
+
+                {/* Section Header */}
+                <div style={{ maxWidth: '1200px', width: '100%', margin: '0 auto', padding: '0 5vw' }}>
+                    <AnimatedText>
+                        <span style={{
+                            fontSize: '0.8rem',
+                            letterSpacing: '0.2em',
+                            opacity: 0.5,
+                            display: 'block',
+                            marginBottom: '2rem',
+                        }}>
+                            FEATURED CLIENT
+                        </span>
+                    </AnimatedText>
+
+                    <AnimatedText delay={0.1}>
+                        <h2 style={{
+                            fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+                            fontWeight: 600,
+                            marginBottom: '2rem',
+                        }}>
+                            ImmoRose × MiroirMall
+                        </h2>
+                    </AnimatedText>
+                </div>
+
+                {/* ===== IMMOROSE - Portrait Video (Left) + Text (Right) ===== */}
+                <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: '350px 1fr',
+                    gap: '2rem',
+                    width: '100%',
+                    maxWidth: '1400px',
+                    margin: '0 auto',
+                    padding: '0 5vw',
+                }}>
+                    <motion.div
+                        initial={{ opacity: 0, x: -50 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1 }}
+                    >
+                        <div style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                            <div>
+                                <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5 }}>
+                                    Brand Identity
+                                </span>
+                                <h3 style={{ fontSize: '1.2rem', fontWeight: 600, marginTop: '0.3rem' }}>
+                                    ImmoRose — Logo Animation
+                                </h3>
+                            </div>
+                            <button
+                                onClick={() => { document.getElementById('immoroseVideo').muted = !document.getElementById('immoroseVideo').muted; }}
+                                style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', opacity: 0.5, padding: '4px' }}
+                            >
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <path d="M11 5L6 9H2v6h4l5 4V5z" /><path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+                                </svg>
+                            </button>
+                        </div>
+                        <video
+                            id="immoroseVideo"
+                            src="/assets/videos/FeaturedCLIENTImmorose/Logo immorose animation/084FEDFC-0985-4CFC-A52D-104CA7011B9D (1).mp4"
+                            autoPlay muted loop playsInline preload="metadata"
+                            style={{ width: '100%', aspectRatio: '9/16', objectFit: 'cover', borderRadius: '12px' }}
+                        />
+                    </motion.div>
+
+                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                        <AnimatedText>
+                            <h3 style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', fontWeight: 700, marginBottom: '1.5rem', lineHeight: 1.1 }}>
+                                <SplitText delay={0.2}>ImmoRose</SplitText>
+                            </h3>
+                        </AnimatedText>
+                        <AnimatedText delay={0.1}>
+                            <p style={{ fontSize: 'clamp(1rem, 1.5vw, 1.2rem)', lineHeight: 1.9, opacity: 0.7, marginBottom: '1.5rem' }}>
+                                <strong>First luxury real estate promoter in DRC</strong> — pioneering high-end construction in the Democratic Republic of Congo since 2019.
+                            </p>
+                        </AnimatedText>
+                        <AnimatedText delay={0.2}>
+                            <p style={{ fontSize: 'clamp(1rem, 1.5vw, 1.2rem)', lineHeight: 1.9, opacity: 0.7 }}>
+                                ImmoRose transforms the Congolese urban landscape with innovative residential and commercial projects, combining international quality standards with local market understanding.
+                            </p>
+                        </AnimatedText>
+                    </div>
+                </div>
+
+                {/* ImmoRose Metrics Marquee */}
+                <section style={{ padding: '2rem 0', borderTop: '1px solid rgba(255,255,255,0.1)', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+                    <MarqueeText speed={50}>
+                        <span style={{ fontSize: 'clamp(0.9rem, 1.5vw, 1.2rem)', fontWeight: 500, opacity: 0.7 }}>
+                            FOUNDED 2019
+                        </span>
+                        <span style={{ fontSize: 'clamp(0.9rem, 1.5vw, 1.2rem)', fontWeight: 500, opacity: 0.7 }}>
+                            KINSHASA HQ
+                        </span>
+                        <span style={{ fontSize: 'clamp(0.9rem, 1.5vw, 1.2rem)', fontWeight: 500, opacity: 0.7 }}>
+                            FIRST LUXURY PROMOTER IN DRC
+                        </span>
+                        <span style={{ fontSize: 'clamp(0.9rem, 1.5vw, 1.2rem)', fontWeight: 500, opacity: 0.7 }}>
+                            9 CARATS VILLAS PROJECT
+                        </span>
+                        <span style={{ fontSize: 'clamp(0.9rem, 1.5vw, 1.2rem)', fontWeight: 500, opacity: 0.7 }}>
+                            HIGH-END REAL ESTATE
+                        </span>
+                    </MarqueeText>
+                </section>
+
+                {/* ===== MIROIR MALL - Text (Left) + Portrait Video (Right) ===== */}
+                <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: '1fr 350px',
+                    gap: '2rem',
+                    width: '100%',
+                    maxWidth: '1400px',
+                    margin: '0 auto',
+                    padding: '0 5vw',
+                }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                        <AnimatedText>
+                            <h3 style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', fontWeight: 700, marginBottom: '1.5rem', lineHeight: 1.1 }}>
+                                <SplitText delay={0.2}>Miroir Mall</SplitText>
+                            </h3>
+                        </AnimatedText>
+                        <AnimatedText delay={0.1}>
+                            <p style={{ fontSize: 'clamp(1rem, 1.5vw, 1.2rem)', lineHeight: 1.9, opacity: 0.7, marginBottom: '1.5rem' }}>
+                                <strong>The largest shopping mall in DRC</strong> — 30,000 m² total surface with 18,000 m² dedicated to the main retail structure. Located at the prestigious Lac Kipopo in Lubumbashi.
+                            </p>
+                        </AnimatedText>
+                        <AnimatedText delay={0.2}>
+                            <p style={{ fontSize: 'clamp(1rem, 1.5vw, 1.2rem)', lineHeight: 1.9, opacity: 0.7 }}>
+                                A landmark destination bringing together over 100 brands, entertainment venues, and premium dining experiences. Grand opening scheduled for December 2026.
+                            </p>
+                        </AnimatedText>
+                    </div>
+
+                    <motion.div
+                        initial={{ opacity: 0, x: 50 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1 }}
+                    >
+                        <div style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                            <div>
+                                <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5 }}>
+                                    Motion Design
+                                </span>
+                                <h3 style={{ fontSize: '1.2rem', fontWeight: 600, marginTop: '0.3rem' }}>
+                                    Miroir Mall — Logo Animation
+                                </h3>
+                            </div>
+                            <button
+                                onClick={() => { document.getElementById('miroirMallVideo').muted = !document.getElementById('miroirMallVideo').muted; }}
+                                style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', opacity: 0.5, padding: '4px' }}
+                            >
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <path d="M11 5L6 9H2v6h4l5 4V5z" /><path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+                                </svg>
+                            </button>
+                        </div>
+                        <video
+                            id="miroirMallVideo"
+                            src="/assets/videos/FeaturedCLIENTImmorose/Logo Miroir mall animation/6E81B99B-68FD-4636-8543-679E9172DBF8.mp4"
+                            autoPlay muted loop playsInline preload="metadata"
+                            style={{ width: '100%', aspectRatio: '9/16', objectFit: 'cover', borderRadius: '12px' }}
+                        />
+                    </motion.div>
+                </div>
+
+                {/* Miroir Mall Metrics Marquee */}
+                <section style={{ padding: '2rem 0', borderTop: '1px solid rgba(255,255,255,0.1)', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+                    <MarqueeText speed={50}>
+                        <span style={{ fontSize: 'clamp(0.9rem, 1.5vw, 1.2rem)', fontWeight: 500, opacity: 0.7 }}>
+                            30 000 M² SURFACE
+                        </span>
+                        <span style={{ fontSize: 'clamp(0.9rem, 1.5vw, 1.2rem)', fontWeight: 500, opacity: 0.7 }}>
+                            18 000 M² RETAIL
+                        </span>
+                        <span style={{ fontSize: 'clamp(0.9rem, 1.5vw, 1.2rem)', fontWeight: 500, opacity: 0.7 }}>
+                            100+ BRANDS
+                        </span>
+                        <span style={{ fontSize: 'clamp(0.9rem, 1.5vw, 1.2rem)', fontWeight: 500, opacity: 0.7 }}>
+                            350 PARKING SPOTS
+                        </span>
+                        <span style={{ fontSize: 'clamp(0.9rem, 1.5vw, 1.2rem)', fontWeight: 500, opacity: 0.7 }}>
+                            1 000+ JOBS CREATED
+                        </span>
+                        <span style={{ fontSize: 'clamp(0.9rem, 1.5vw, 1.2rem)', fontWeight: 500, opacity: 0.7 }}>
+                            15 000 VISITORS/DAY
+                        </span>
+                        <span style={{ fontSize: 'clamp(0.9rem, 1.5vw, 1.2rem)', fontWeight: 500, opacity: 0.7 }}>
+                            DECEMBER 2026
+                        </span>
+                    </MarqueeText>
+                </section>
+
+                {/* ===== Photorealistic Exteriors - Miroir Mall Building ===== */}
+                <div style={{ width: '100%' }}>
+                    <div style={{ padding: '0 5vw', marginBottom: '2rem' }}>
+                        <AnimatedText>
+                            <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.15em', opacity: 0.5 }}>
+                                Photorealistic Exteriors — Miroir Mall Building
+                            </span>
+                            <h3 style={{ fontSize: '1.5rem', fontWeight: 600, marginTop: '0.5rem' }}>
+                                Architectural Vision
+                            </h3>
+                        </AnimatedText>
+                    </div>
+                    <MarqueeText speed={150}>
+                        {[
+                            '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Miroir mall building/1d7a217c-e700-4d61-ba7a-5e58cf6ba7b0.webp',
+                            '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Miroir mall building/353b252a-c4c5-46a2-acaf-efa2f26fdfb3.webp',
+                            '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Miroir mall building/3b315225-e613-4730-bc90-00c1cd0d79b7.webp',
+                            '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Miroir mall building/b3cbc484-7344-4a14-a234-294321989edf.webp',
+                        ].map((src, i) => (
+                            <img
+                                key={i}
+                                src={src}
+                                alt={`Miroir Mall Building ${i + 1}`}
+                                loading="lazy"
+                                style={{
+                                    height: '400px',
+                                    width: 'auto',
+                                    objectFit: 'cover',
+                                    marginRight: '1rem',
+                                }}
+                            />
+                        ))}
+                    </MarqueeText>
+                </div>
+
+                {/* ===== Photorealistic Interiors - Le Sheesha Lounge ===== */}
+                <div style={{ width: '100%' }}>
+                    <div style={{ padding: '0 5vw', marginBottom: '2rem' }}>
+                        <AnimatedText>
+                            <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.15em', opacity: 0.5 }}>
+                                Photorealistic Interiors — Le Sheesha Lounge
+                            </span>
+                            <h3 style={{ fontSize: '1.5rem', fontWeight: 600, marginTop: '0.5rem' }}>
+                                Premium Lounge Experience
+                            </h3>
+                        </AnimatedText>
+                    </div>
+                    <MarqueeText speed={130}>
+                        {[
+                            '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Le Sheesha Lounge/041b13da-67fe-4794-9de0-db80b07ee4a7.webp',
+                            '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Le Sheesha Lounge/860430e1-adee-4f30-8d5a-ccab93c0d60c.webp',
+                            '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Le Sheesha Lounge/d3daa198-6278-4dea-9032-11d0723c2eaf.webp',
+                            '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Le Sheesha Lounge/d79c908b-fe7f-415b-b432-08f9565b8f79.webp',
+                            '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Le Sheesha Lounge/e68e5b78-d404-419e-91de-a07685cd9bde.webp',
+                            '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Le Sheesha Lounge/f4f365c4-1201-436b-aa70-ecb801e7228c.webp',
+                        ].map((src, i) => (
+                            <img
+                                key={i}
+                                src={src}
+                                alt={`Sheesha Lounge ${i + 1}`}
+                                loading="lazy"
+                                style={{
+                                    height: '400px',
+                                    width: 'auto',
+                                    objectFit: 'cover',
+                                    marginRight: '1rem',
+                                }}
+                            />
+                        ))}
+                    </MarqueeText>
+                </div>
+
+                {/* ===== Photorealistic Interiors - Banquet Hall ===== */}
+                <div style={{ width: '100%' }}>
+                    <div style={{ padding: '0 5vw', marginBottom: '2rem' }}>
+                        <AnimatedText>
+                            <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.15em', opacity: 0.5 }}>
+                                Photorealistic Interiors — Banquet Hall
+                            </span>
+                            <h3 style={{ fontSize: '1.5rem', fontWeight: 600, marginTop: '0.5rem' }}>
+                                Grand Event Space
+                            </h3>
+                        </AnimatedText>
+                    </div>
+                    <MarqueeText speed={120}>
+                        {[
+                            '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Banquet Hall/07c56606-be35-40c0-bd83-4dbdf6e6572e.webp',
+                            '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Banquet Hall/1f7727dc-2c12-4c62-9d5a-36a439eb2f22.webp',
+                            '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Banquet Hall/3f36cc37-7506-48ab-93a1-16e6482d9977 (1).webp',
+                            '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Banquet Hall/49ab5a60-efbd-4e8c-94a6-c8caa40274f7.webp',
+                            '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Banquet Hall/89334f91-150b-433d-a1f2-3db868fa306f (1).webp',
+                            '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Banquet Hall/9896306f-339f-4264-80ee-40b4620dc8a4.webp',
+                            '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Banquet Hall/99ef4ba4-58e8-48c7-8a50-b304c72c5307.webp',
+                            '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Banquet Hall/cba2fa3d-0b1e-48f8-a95c-90527609c0d3.webp',
+                            '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Banquet Hall/f504de92-fda8-40d2-8f5e-2b4af3b81684.webp',
+                        ].map((src, i) => (
+                            <img
+                                key={i}
+                                src={src}
+                                alt={`Banquet Hall ${i + 1}`}
+                                loading="lazy"
+                                style={{
+                                    height: '400px',
+                                    width: 'auto',
+                                    objectFit: 'cover',
+                                    marginRight: '1rem',
+                                }}
+                            />
+                        ))}
+                    </MarqueeText>
+                </div>
+
+                {/* ===== FINANCIAL PROJECTIONS & ANALYTICS ===== */}
+                <div style={{
+                    width: '100%',
+                    maxWidth: '1400px',
+                    margin: '0 auto',
+                    padding: '4rem 5vw',
+                    background: 'rgba(255,255,255,0.02)',
+                    borderRadius: '24px',
+                }}>
+                    <AnimatedText>
+                        <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.15em', opacity: 0.5, display: 'block', marginBottom: '1rem' }}>
+                            Data Intelligence Report
+                        </span>
+                        <h3 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 700, marginBottom: '3rem' }}>
+                            <SplitText delay={0.2}>Revenue Projections 2027-2028</SplitText>
+                        </h3>
+                    </AnimatedText>
+
+                    {/* Key Metrics Grid - Animated Counters */}
+                    <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                        gap: '2rem',
+                        marginBottom: '4rem',
+                    }}>
+                        {[
+                            { value: '$4M', label: 'Realistic Revenue 2028', icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></svg> },
+                            { value: '15K', label: 'Visitors Per Day', icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" /></svg> },
+                            { value: '18K', label: 'm² Leasable Area', icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M3 9h18M9 21V9" /></svg> },
+                            { value: '1,000+', label: 'Jobs Created', icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg> },
+                        ].map((metric, i) => (
+                            <motion.div
+                                key={metric.label}
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.8, delay: i * 0.15 }}
+                                style={{
+                                    background: 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)',
+                                    borderRadius: '16px',
+                                    padding: '2rem',
+                                    border: '1px solid rgba(255,255,255,0.1)',
+                                    textAlign: 'center',
+                                }}
+                            >
+                                <span style={{ display: 'block', marginBottom: '0.5rem', opacity: 0.5 }}>{metric.icon}</span>
+                                <motion.span
+                                    style={{
+                                        fontSize: 'clamp(2rem, 4vw, 2.5rem)',
+                                        fontWeight: 800,
+                                        display: 'block',
+                                        background: 'linear-gradient(135deg, #fff 0%, #888 100%)',
+                                        WebkitBackgroundClip: 'text',
+                                        WebkitTextFillColor: 'transparent',
+                                    }}
+                                >
+                                    {metric.value}
+                                </motion.span>
+                                <span style={{ fontSize: '0.85rem', opacity: 0.6, marginTop: '0.5rem', display: 'block' }}>
+                                    {metric.label}
+                                </span>
+                            </motion.div>
+                        ))}
+                    </div>
+
+                    {/* Revenue Projections Chart */}
+                    <AnimatedText delay={0.3}>
+                        <div style={{
+                            background: 'rgba(0,0,0,0.3)',
+                            borderRadius: '16px',
+                            padding: '2rem',
+                            border: '1px solid rgba(255,255,255,0.1)',
+                        }}>
+                            <h4 style={{ fontSize: '1.2rem', fontWeight: 600, marginBottom: '2rem', opacity: 0.8 }}>
+                                Annual Revenue Scenarios (USD)
+                            </h4>
+
+                            {/* Chart Bars */}
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                                {[
+                                    { year: '2027', pessimistic: 1.8, realistic: 2.7, optimistic: 3.6 },
+                                    { year: '2028', pessimistic: 2.8, realistic: 4.0, optimistic: 4.8 },
+                                ].map((data, i) => (
+                                    <div key={data.year}>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                                            <span style={{ fontWeight: 600, opacity: 0.9 }}>{data.year}</span>
+                                        </div>
+                                        <div style={{ display: 'flex', gap: '0.5rem', height: '40px', alignItems: 'center' }}>
+                                            {/* Pessimistic Bar */}
+                                            <motion.div
+                                                initial={{ width: 0 }}
+                                                whileInView={{ width: `${data.pessimistic * 15}%` }}
+                                                viewport={{ once: true }}
+                                                transition={{ duration: 1.2, delay: i * 0.2 }}
+                                                style={{
+                                                    height: '100%',
+                                                    background: 'linear-gradient(90deg, #6b7280 0%, #9ca3af 100%)',
+                                                    borderRadius: '8px',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    paddingLeft: '0.75rem',
+                                                    fontSize: '0.75rem',
+                                                    fontWeight: 600,
+                                                    minWidth: 'fit-content',
+                                                }}
+                                            >
+                                                ${data.pessimistic}M
+                                            </motion.div>
+                                            {/* Realistic Bar */}
+                                            <motion.div
+                                                initial={{ width: 0 }}
+                                                whileInView={{ width: `${data.realistic * 15}%` }}
+                                                viewport={{ once: true }}
+                                                transition={{ duration: 1.2, delay: i * 0.2 + 0.1 }}
+                                                style={{
+                                                    height: '100%',
+                                                    background: 'linear-gradient(90deg, #fff 0%, #e5e7eb 100%)',
+                                                    borderRadius: '8px',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    paddingLeft: '0.75rem',
+                                                    fontSize: '0.75rem',
+                                                    fontWeight: 700,
+                                                    color: '#000',
+                                                    minWidth: 'fit-content',
+                                                }}
+                                            >
+                                                ${data.realistic}M
+                                            </motion.div>
+                                            {/* Optimistic Bar */}
+                                            <motion.div
+                                                initial={{ width: 0 }}
+                                                whileInView={{ width: `${data.optimistic * 15}%` }}
+                                                viewport={{ once: true }}
+                                                transition={{ duration: 1.2, delay: i * 0.2 + 0.2 }}
+                                                style={{
+                                                    height: '100%',
+                                                    background: 'linear-gradient(90deg, #10b981 0%, #34d399 100%)',
+                                                    borderRadius: '8px',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    paddingLeft: '0.75rem',
+                                                    fontSize: '0.75rem',
+                                                    fontWeight: 600,
+                                                    color: '#fff',
+                                                    minWidth: 'fit-content',
+                                                }}
+                                            >
+                                                ${data.optimistic}M
+                                            </motion.div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+
+                            {/* Legend */}
+                            <div style={{ display: 'flex', gap: '2rem', marginTop: '2rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                    <div style={{ width: '16px', height: '16px', borderRadius: '4px', background: '#6b7280' }}></div>
+                                    <span style={{ fontSize: '0.85rem', opacity: 0.7 }}>Pessimistic</span>
+                                </div>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                    <div style={{ width: '16px', height: '16px', borderRadius: '4px', background: '#fff' }}></div>
+                                    <span style={{ fontSize: '0.85rem', opacity: 0.7 }}>Realistic</span>
+                                </div>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                    <div style={{ width: '16px', height: '16px', borderRadius: '4px', background: '#10b981' }}></div>
+                                    <span style={{ fontSize: '0.85rem', opacity: 0.7 }}>Optimistic</span>
+                                </div>
+                            </div>
+                        </div>
+                    </AnimatedText>
+
+                    {/* Economic Context */}
+                    <AnimatedText delay={0.4}>
+                        <div style={{
+                            marginTop: '2rem',
+                            padding: '1.5rem 2rem',
+                            background: 'rgba(255,255,255,0.03)',
+                            borderRadius: '12px',
+                            border: '1px solid rgba(255,255,255,0.08)',
+                        }}>
+                            <p style={{ fontSize: '0.95rem', lineHeight: 1.8, opacity: 0.7, margin: 0 }}>
+                                <strong style={{ opacity: 1 }}>Economic Context:</strong> DRC GDP projected at $76.1B (2025) with 5.3% growth.
+                                Lubumbashi population: 3M+ with 15% middle class. MiroirMall targets 10,000-15,000 visitors/day.
+                            </p>
+                        </div>
+                    </AnimatedText>
+                </div>
+
+                {/* Full Report Access */}
+                <div style={{
+                    width: '100%',
+                    maxWidth: '1400px',
+                    margin: '0 auto',
+                    padding: '4rem 5vw',
+                }}>
+                    <AnimatedText>
+                        <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.15em', opacity: 0.5, display: 'block', marginBottom: '1rem' }}>
+                            Data Intelligence & Advanced Excel
+                        </span>
+                        <h3 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.5rem)', fontWeight: 700, marginBottom: '1.5rem' }}>
+                            <SplitText delay={0.2}>Access Complete Analysis</SplitText>
+                        </h3>
+                    </AnimatedText>
+                    <AnimatedText delay={0.1}>
+                        <p style={{ fontSize: 'clamp(1rem, 1.5vw, 1.1rem)', lineHeight: 1.9, opacity: 0.7, maxWidth: '700px', marginBottom: '2rem' }}>
+                            10-sheet Excel workbook featuring market research, revenue projections across 3 scenarios, competitor analysis, prospect database, and comprehensive economic data for the DRC retail sector.
+                        </p>
+                    </AnimatedText>
+                    <AnimatedText delay={0.2}>
+                        <MagneticButton href="https://1drv.ms/x/c/9c6f3514f4638c89/IQDBG7OR0kZQR6O_liFLE8nNAfamZUYCET9Jaba8xyqWHQI?e=iEyZvu">
+                            Access Full Report →
+                        </MagneticButton>
+                    </AnimatedText>
+                    <AnimatedText delay={0.3}>
+                        <p style={{ fontSize: '0.75rem', opacity: 0.35, marginTop: '2rem', fontStyle: 'italic', maxWidth: '600px' }}>
+                            Portfolio demonstration — projections based on public sources. ImmoRose SARL holds actual project data.
+                        </p>
+                    </AnimatedText>
+                </div>
+
+            </section>
+
             {/* ========== CONTACT SECTION ========== */}
             <section style={{
                 ...styles.section,
@@ -896,9 +1432,100 @@ function App() {
                 </AnimatedText>
 
                 <AnimatedText delay={0.4}>
-                    <MagneticButton href="mailto:contact@aurelienkarydas.com">
-                        Get in Touch →
-                    </MagneticButton>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', alignItems: 'center' }}>
+                        <a
+                            href="mailto:kaluluexpress@gmail.com"
+                            style={{
+                                fontSize: '1.3rem',
+                                fontWeight: 600,
+                                color: '#fff',
+                                textDecoration: 'none',
+                                transition: 'opacity 0.3s ease',
+                                opacity: 0.9,
+                            }}
+                            onMouseEnter={(e) => e.target.style.opacity = 1}
+                            onMouseLeave={(e) => e.target.style.opacity = 0.9}
+                        >
+                            kaluluexpress@gmail.com
+                        </a>
+                        <a
+                            href="https://wa.me/243852259279"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                                fontSize: '1.1rem',
+                                opacity: 0.7,
+                                color: '#fff',
+                                textDecoration: 'none',
+                                transition: 'opacity 0.3s ease',
+                            }}
+                            onMouseEnter={(e) => e.target.style.opacity = 1}
+                            onMouseLeave={(e) => e.target.style.opacity = 0.7}
+                        >
+                            +243 852 259 279 (WhatsApp)
+                        </a>
+                    </div>
+                </AnimatedText>
+
+                <AnimatedText delay={0.5}>
+                    <p style={{ fontSize: '0.9rem', opacity: 0.4, marginTop: '3rem', fontStyle: 'italic' }}>
+                        Available for freelance projects, collaborations, and training sessions worldwide.
+                    </p>
+                </AnimatedText>
+
+                <AnimatedText delay={0.6}>
+                    <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginTop: '2rem', flexWrap: 'wrap' }}>
+                        <a
+                            href="/skills-resume.html"
+                            target="_blank"
+                            style={{
+                                display: 'inline-block',
+                                padding: '12px 24px',
+                                border: '1px solid rgba(255,255,255,0.2)',
+                                borderRadius: '8px',
+                                color: '#fff',
+                                textDecoration: 'none',
+                                fontSize: '0.9rem',
+                                opacity: 0.7,
+                                transition: 'all 0.3s ease',
+                            }}
+                            onMouseEnter={(e) => {
+                                e.target.style.opacity = 1;
+                                e.target.style.borderColor = 'rgba(255,255,255,0.5)';
+                            }}
+                            onMouseLeave={(e) => {
+                                e.target.style.opacity = 0.7;
+                                e.target.style.borderColor = 'rgba(255,255,255,0.2)';
+                            }}
+                        >
+                            Skills & Expertise →
+                        </a>
+                        <a
+                            href="/cv.html"
+                            target="_blank"
+                            style={{
+                                display: 'inline-block',
+                                padding: '12px 24px',
+                                border: '1px solid rgba(255,255,255,0.2)',
+                                borderRadius: '8px',
+                                color: '#fff',
+                                textDecoration: 'none',
+                                fontSize: '0.9rem',
+                                opacity: 0.7,
+                                transition: 'all 0.3s ease',
+                            }}
+                            onMouseEnter={(e) => {
+                                e.target.style.opacity = 1;
+                                e.target.style.borderColor = 'rgba(255,255,255,0.5)';
+                            }}
+                            onMouseLeave={(e) => {
+                                e.target.style.opacity = 0.7;
+                                e.target.style.borderColor = 'rgba(255,255,255,0.2)';
+                            }}
+                        >
+                            View Full CV →
+                        </a>
+                    </div>
                 </AnimatedText>
             </section>
 
@@ -913,7 +1540,7 @@ function App() {
                 gap: '1rem',
             }}>
                 <span style={{ fontSize: '0.9rem', opacity: 0.5 }}>
-                    © 2024 Aurelien Karydas
+                    © 2025 Aurelien Karydas
                 </span>
                 <span style={{ fontSize: '0.9rem', opacity: 0.5 }}>
                     Lubumbashi, RDC

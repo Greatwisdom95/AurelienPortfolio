@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎨 NanoBanana Pro - Prompts MiroirMall/ImmoRose</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F5E6C8;
+            --gold-dark: #B8860B;
+            --black: #0D0D0D;
+            --charcoal: #1A1A1A;
+            --graphite: #2D2D2D;
+            --white: #FFFFFF;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(212, 175, 55, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--black) 0%, var(--charcoal) 50%, var(--graphite) 100%);
+            color: var(--white);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--gold-light);
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+
+        .nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 3rem;
+            padding: 1rem;
+            background: var(--glass-bg);
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav a {
+            color: var(--gold);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .nav a:hover {
+            background: var(--gold);
+            color: var(--black);
+            border-color: var(--gold);
+        }
+
+        .section {
+            margin-bottom: 4rem;
+            padding: 2rem;
+            background: var(--glass-bg);
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 0.5rem;
+        }
+
+        .section-subtitle {
+            color: var(--gold-light);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.7;
+        }
+
+        .image-ref {
+            background: var(--charcoal);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: var(--gold-light);
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        .prompts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .prompt-card {
+            background: linear-gradient(145deg, rgba(45, 45, 45, 0.8), rgba(26, 26, 26, 0.9));
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .prompt-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--gold), var(--gold-dark));
+        }
+
+        .prompt-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.2);
+            border-color: var(--gold);
+        }
+
+        .prompt-card h4 {
+            color: var(--gold);
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .prompt-card .style-tag {
+            font-size: 0.7rem;
+            background: var(--gold);
+            color: var(--black);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .prompt-text {
+            background: var(--black);
+            border-radius: 8px;
+            padding: 1rem;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #e0e0e0;
+            border: 1px solid var(--graphite);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .prompt-text:hover {
+            border-color: var(--gold);
+        }
+
+        .prompt-text:active {
+            background: var(--charcoal);
+        }
+
+        .copy-hint {
+            font-size: 0.7rem;
+            color: var(--gold-light);
+            opacity: 0.5;
+            margin-top: 0.5rem;
+            text-align: right;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--gold-light);
+            opacity: 0.7;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--gold-light);
+            opacity: 0.5;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .prompts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>🎨 NanoBanana Pro Prompts</h1>
+    <p class="subtitle">MiroirMall / ImmoRose - Collection de 36 Prompts Premium</p>
+
+    <div class="stats">
+        <div class="stat">
+            <div class="stat-value">36</div>
+            <div class="stat-label">Prompts Total</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value">9</div>
+            <div class="stat-label">Images Source</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value">4</div>
+            <div class="stat-label">Styles par Image</div>
+        </div>
+    </div>
+
+    <nav class="nav">
+        <a href="#logos">🏷️ Logos</a>
+        <a href="#facade">🏢 Façade</a>
+        <a href="#atrium">✨ Atrium</a>
+        <a href="#aerienne">🛩️ Vue Aérienne</a>
+        <a href="#galerie">🛍️ Galerie</a>
+        <a href="#parking">🚗 Parking</a>
+        <a href="#nouveaux">🆕 Nouvelles Vues</a>
+    </nav>
+
+    <!-- ==================== LOGOS ==================== -->
+    <section id="logos" class="section">
+        <h2 class="section-title">🏷️ Logos ImmoRose & MiroirMall</h2>
+        <p class="section-subtitle">Variations créatives des logos avec effets premium</p>
+        <div class="image-ref">📁 immorose_logo_principal.png | miroirmall_logo_noir.png |
+            ref_glassmorphism_logo_style.png</div>
+
+        <div class="prompts-grid">
+            <div class="prompt-card">
+                <h4>Logo Glassmorphism <span class="style-tag">GLASS</span></h4>
+                <div class="prompt-text" onclick="copyPrompt(this)">
+                    Premium glassmorphism logo presentation for "MIROIR MALL" shopping center. Frosted glass panel
+                    effect with elegant blur, abstract luxury mall interior visible through transparency. Gold accent
+                    lighting (#D4AF37) creating warm glow behind glass. Subtle reflections, modern minimalist branding
+                    aesthetic. Clean composition suitable for hero banner. Dark background (#0D0D0D). Ultra high quality
+                    4K render.
+                </div>
+                <div class="copy-hint">Cliquer pour copier</div>
+            </div>
+
+            <div class="prompt-card">
+                <h4>Logo 3D Gold Massive <span class="style-tag">3D</span></h4>
+                <div class="prompt-text" onclick="copyPrompt(this)">
+                    3D rendered logo "IMMOROSE" in massive solid gold material (#D4AF37). Realistic metal texture with
+                    subtle scratches and reflections. Dramatic studio lighting on pure black background (#0D0D0D).
+                    Cinematic depth of field, professional product photography style. Ray-traced reflections, 8K quality
+                    render. Luxury real estate branding.
+                </div>
+                <div class="copy-hint">Cliquer pour copier</div>
+            </div>
+
+            <div class="prompt-card">
+                <h4>Logo Unreal Engine <span class="style-tag">UE5</span></h4>
+                <div class="prompt-text" onclick="copyPrompt(this)">
+                    Unreal Engine 5 rendered logo "MIROIR MALL" floating in architectural space. Nanite geometry detail,
+                    Lumen global illumination. Gold metallic material with environmental reflections showing luxury mall
+                    interior. Volumetric fog, cinematic lighting. Real-time rendering quality, photorealistic. Black
+                    marble floor reflection. 4K game engine quality.
+                </div>
+                <div class="copy-hint">Cliquer pour copier</div>
+            </div>
+
+            <div class="prompt-card">
+                <h4>Logo Holographique <span class="style-tag">HOLO</span></h4>
+                <div class="prompt-text" onclick="copyPrompt(this)">
+                    Holographic projection of "IMMOROSE" logo in futuristic setting. Translucent gold light particles
+                    forming letters, subtle chromatic aberration. Dark environment with tech ambiance. Sci-fi corporate
+                    headquarters aesthetic. Floating 3D text with depth, volumetric light rays. Premium tech-luxury
+                    brand visualization. 4K cinematic render.
+                </div>
+                <div class="copy-hint">Cliquer pour copier</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FACADE PRINCIPALE ==================== -->
+    <section id="facade" class="section">
+        <h2 class="section-title">🏢 Façade Principale</h2>
+        <p class="section-subtitle">Vue extérieure principale du centre commercial</p>
+        <div class="image-ref">📁 mall_exterior_facade_principale.png</div>
+
+        <div class="prompts-grid">
+            <div class="prompt-card">
+                <h4>Façade Golden Hour <span class="style-tag">PHOTO</span></h4>
+                <div class="prompt-text" onclick="copyPrompt(this)">
+                    Based on reference image. Photorealistic exterior of Miroir Mall Lubumbashi. Modern glass and steel
+                    facade, dramatic golden hour sunset lighting with warm orange reflections on glass panels. Tropical
+                    African landscaping with palm trees, luxury vehicles in parking. Busy entrance with well-dressed
+                    visitors. Premium retail destination atmosphere. Architectural photography, 4K ultra sharp.
+                </div>
+                <div class="copy-hint">Cliquer pour copier</div>
+            </div>
+
+            <div class="prompt-card">
+                <h4>Façade Nuit Illuminée <span class="style-tag">NIGHT</span></h4>
+                <div class="prompt-text" onclick="copyPrompt(this)">
+                    Based on reference. Night time exterior of Miroir Mall. Dramatic architectural illumination with
+                    gold accent lighting (#D4AF37) on facade. Glass panels glowing warmly against deep blue night sky.
+                    LED signage visible, lit parking lot with cars. Stars visible, African urban nightlife atmosphere.
+                    Luxury destination at night. Cinematic quality 4K.
+                </div>
+                <div class="copy-hint">Cliquer pour copier</div>
+            </div>
+
+            <div class="prompt-card">
+                <h4>Façade Unreal Engine <span class="style-tag">UE5</span></h4>
+                <div class="prompt-text" onclick="copyPrompt(this)">
+                    Unreal Engine 5 architectural visualization of modern shopping mall facade. Based on reference.
+                    Nanite high-poly geometry, Lumen real-time GI. Glass material with accurate reflections, realistic
+                    concrete and steel textures. Dramatic sunset HDRI lighting. Photorealistic vegetation, animated
+                    crowd. Ray-traced reflections on wet ground. Game-engine quality 4K.
+                </div>
+                <div class="copy-hint">Cliquer pour copier</div>
+            </div>
+
+            <div class="prompt-card">
+                <h4>Façade Vue Panoramique <span class="style-tag">WIDE</span></h4>
+                <div class="prompt-text" onclick="copyPrompt(this)">
+                    Ultra-wide panoramic view of Miroir Mall complex. Full facade visible with surrounding urban
+                    context, Lubumbashi cityscape in background. Lake Kipopo partially visible. Dramatic sky with
+                    African clouds. Comprehensive site overview showing 20,000 sqm building scale. Drone photography
+                    style, professional real estate marketing. 4K high resolution.
+                </div>
+                <div class="copy-hint">Cliquer pour copier</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ATRIUM CENTRAL ==================== -->
+    <section id="atrium" class="section">
+        <h2 class="section-title">✨ Atrium Central</h2>
+        <p class="section-subtitle">Espace intérieur principal avec escalators</p>
+        <div class="image-ref">📁 mall_interior_atrium_central.png</div>
+
+        <div class="prompts-grid">
+            <div class="prompt-card">
+                <h4>Atrium Luxe Réaliste <span class="style-tag">PHOTO</span></h4>
+                <div class="prompt-text" onclick="copyPrompt(this)">
+                    Based on reference. Luxurious shopping mall atrium interior. High glass ceiling flooding space with
+                    natural light. Polished white marble floors with gold inlay accents. Modern escalators, multiple
+                    retail levels visible. Premium storefronts with elegant displays. Well-dressed African shoppers.
+                    Subtle water feature, green plants. 4K photorealistic interior photography.
+                </div>
+                <div class="copy-hint">Cliquer pour copier</div>
+            </div>
+
+            <div class="prompt-card">
+                <h4>Atrium Ambiance Soir <span class="style-tag">EVENING</span></h4>
+                <div class="prompt-text" onclick="copyPrompt(this)">
+                    Evening atmosphere in luxury mall atrium. Based on reference. Warm artificial lighting with gold
+                    tones (#D4AF37). Skylight showing dusk sky. Elegant chandeliers, LED accent lighting on railings.
+                    Sophisticated evening shopping crowd. Premium brands visible. Intimate yet grand atmosphere.
+                    Architectural interior 4K render.
+                </div>
+                <div class="copy-hint">Cliquer pour copier</div>
+            </div>
+
+            <div class="prompt-card">
+                <h4>Atrium Octane Render <span class="style-tag">OCTANE</span></h4>
+                <div class="prompt-text" onclick="copyPrompt(this)">
+                    Octane render of modern shopping mall atrium. Based on reference image. Ultra-realistic materials:
+                    polished marble, chrome railings, glass panels. Accurate light simulation through skylight.
+                    Volumetric atmosphere, subtle lens flare. Photorealistic human figures. Architectural visualization
+                    quality. 8K resolution, production ready.
+                </div>
+                <div class="copy-hint">Cliquer pour copier</div>
+            </div>
+
+            <div class="prompt-card">
+                <h4>Atrium Vertical Shot <span class="style-tag">ANGLE</span></h4>
+                <div class="prompt-text" onclick="copyPrompt(this)">
+                    Dramatic vertical perspective looking up through multi-level mall atrium. All floors visible
+                    converging toward glass ceiling. Geometric patterns from escalators and railings. Natural light
+                    streaming down. Architectural photography style, strong vertical lines. Premium retail destination
+                    ambiance. 4K professional quality.
+                </div>
+                <div class="copy-hint">Cliquer pour copier</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== VUE AERIENNE ==================== -->
+    <section id="aerienne" class="section">
+        <h2 class="section-title">🛩️ Vue Aérienne</h2>
+        <p class="section-subtitle">Perspective drone du complexe</p>
+        <div class="image-ref">📁 mall_exterior_vue_aerienne.png</div>
+
+        <div class="prompts-grid">
+            <div class="prompt-card">
+                <h4>Aérienne Golden Hour <span class="style-tag">DRONE</span></h4>
+                <div class="prompt-text" onclick="copyPrompt(this)">
+                    Professional drone photography of Miroir Mall from above. Based on reference. 20,000 sqm building
+                    complex, expansive 330-car parking visible. Lake Kipopo reflection nearby. Golden hour African
+                    sunset lighting. Modern architecture, organized landscaping. Urban development showcase for DRC.
+                    Real estate marketing quality. Ultra sharp 4K.
+                </div>
+                <div class="copy-hint">Cliquer pour copier</div>
+            </div>
+
+            <div class="prompt-card">
+                <h4>Aérienne Nuit <span class="style-tag">NIGHT</span></h4>
+                <div class="prompt-text" onclick="copyPrompt(this)">
+                    Night aerial view of illuminated shopping mall complex. Based on reference. Building glowing with
+                    warm gold lighting, parking lot lights creating patterns. Lubumbashi city lights in distance. Lake
+                    reflecting moonlight. Dramatic contrast between lit mall and dark surroundings. Premium destination
+                    beacon. Drone night photography 4K.
+                </div>
+                <div class="copy-hint">Cliquer pour copier</div>
+            </div>
+
+            <div class="prompt-card">
+                <h4>Aérienne Masterplan <span class="style-tag">ARCH</span></h4>
+                <div class="prompt-text" onclick="copyPrompt(this)">
+                    Architectural masterplan visualization aerial view. Based on reference. Technical yet beautiful
+                    presentation of site layout. Building footprint, parking zones, landscaping areas clearly defined.
+                    Subtle color coding, professional labels. Urban planning quality render. Suitable for investor
+                    presentations. Clean 4K architectural visualization.
+                </div>
+                <div class="copy-hint">Cliquer pour copier</div>
+            </div>
+
+            <div class="prompt-card">
+                <h4>Aérienne Orbite <span class="style-tag">360</span></h4>
+                <div class="prompt-text" onclick="copyPrompt(this)">
+                    Orbital drone view circling Miroir Mall from 45-degree angle. Complete building visible with
+                    surrounding context. Dynamic perspective showing scale and integration with environment. Lake,
+                    roads, urban fabric visible. Cinematic real estate presentation style. Smooth aerial photography
+                    quality. 4K professional marketing.
+                </div>
+                <div class="copy-hint">Cliquer pour copier</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== GALERIE COMMERCIALE ==================== -->
+    <section id="galerie" class="section">
+        <h2 class="section-title">🛍️ Galerie Commerciale</h2>
+        <p class="section-subtitle">Couloirs et espaces boutiques</p>
+        <div class="image-ref">📁 mall_interior_galerie_commerciale.png</div>
+
+        <div class="prompts-grid">
+            <div class="prompt-card">
+                <h4>Galerie Premium Brands <span class="style-tag">LUXURY</span></h4>
+                <div class="prompt-text" onclick="copyPrompt(this)">
+                    High-end retail gallery in luxury African mall. Based on reference. Wide corridor with polished
+                    stone flooring, elegant lighting. Premium international brand storefronts visible (fashion,
+                    accessories). Well-dressed diverse African clientele browsing. Modern fixtures, Chrome and glass
+                    materials. Warm inviting atmosphere. 4K interior photography quality.
+                </div>
+                <div class="copy-hint">Cliquer pour copier</div>
+            </div>
+
+            <div class="prompt-card">
+                <h4>Galerie Busy Lifestyle <span class="style-tag">LIFE</span></h4>
+                <div class="prompt-text" onclick="copyPrompt(this)">
+                    Busy shopping gallery atmosphere. Based on reference. Families and couples shopping, animated scene.
+                    Shopping bags, children excited. Multiple stores with colorful displays. Saturday afternoon vibes,
+                    natural and artificial light mix. African urban lifestyle, modern consumption. Documentary style 4K
+                    photograph.
+                </div>
+                <div class="copy-hint">Cliquer pour copier</div>
+            </div>
+
+            <div class="prompt-card">
+                <h4>Galerie V-Ray Cinema <span class="style-tag">VRAY</span></h4>
+                <div class="prompt-text" onclick="copyPrompt(this)">
+                    V-Ray rendered retail corridor. Based on reference. Photorealistic materials: granite floors,
+                    LED-lit signage, glass storefronts. Accurate caustics and reflections. Subtle depth of field,
+                    cinematic lens. Empty for architectural clarity. Materials showcase quality. 8K production render.
+                </div>
+                <div class="copy-hint">Cliquer pour copier</div>
+            </div>
+
+            <div class="prompt-card">
+                <h4>Galerie Perspective Longue <span class="style-tag">DEPTH</span></h4>
+                <div class="prompt-text" onclick="copyPrompt(this)">
+                    Long perspective view down retail gallery corridor. Converging lines emphasizing length and scale of
+                    mall. Stores receding into distance. Dramatic vanishing point composition. Rhythmic lighting
+                    creating depth. Architectural photography technique. Professional real estate presentation. 4K
+                    quality.
+                </div>
+                <div class="copy-hint">Cliquer pour copier</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== PARKING ENTREE ==================== -->
+    <section id="parking" class="section">
+        <h2 class="section-title">🚗 Parking & Entrée</h2>
+        <p class="section-subtitle">Accès et stationnement</p>
+        <div class="image-ref">📁 mall_exterior_parking_entree.png</div>
+
+        <div class="prompts-grid">
+            <div class="prompt-card">
+                <h4>Parking Premium Cars <span class="style-tag">LUXURY</span></h4>
+                <div class="prompt-text" onclick="copyPrompt(this)">
+                    Mall parking entrance with luxury vehicles. Based on reference. Mercedes, BMW, Range Rover parked.
+                    Clear "MIROIR MALL" signage with gold accents. Modern access barriers, security booth.
+                    Well-maintained landscaping, organized parking bays. Upscale African retail destination entrance.
+                    Professional real estate photography 4K.
+                </div>
+                <div class="copy-hint">Cliquer pour copier</div>
+            </div>
+
+            <div class="prompt-card">
+                <h4>Parking Activité <span class="style-tag">BUSY</span></h4>
+                <div class="prompt-text" onclick="copyPrompt(this)">
+                    Busy parking lot activity at shopping mall. Based on reference. Cars entering and exiting, families
+                    walking toward entrance. 330 parking spaces visible. Pedestrian crossings, safety barriers. Modern
+                    urban retail experience. Documentary style capturing real activity. 4K photograph quality.
+                </div>
+                <div class="copy-hint">Cliquer pour copier</div>
+            </div>
+
+            <div class="prompt-card">
+                <h4>Parking Night Security <span class="style-tag">NIGHT</span></h4>
+                <div class="prompt-text" onclick="copyPrompt(this)">
+                    Night view of secure mall parking. Based on reference. Well-lit with modern LED lighting. Security
+                    cameras visible, safe atmosphere. Cars parked, mall entrance glowing in background. Professional
+                    facility management evident. Urban African night, secure premium destination. 4K night photography.
+                </div>
+                <div class="copy-hint">Cliquer pour copier</div>
+            </div>
+
+            <div class="prompt-card">
+                <h4>Parking Drone Overview <span class="style-tag">AERIAL</span></h4>
+                <div class="prompt-text" onclick="copyPrompt(this)">
+                    Low drone view over parking lot with mall in background. Based on reference. Organized parking
+                    layout, access roads visible. Landscaping between sections. Scale of 330 spaces evident. Building
+                    facade as backdrop. Comprehensive facility overview. Real estate drone photography 4K.
+                </div>
+                <div class="copy-hint">Cliquer pour copier</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== NOUVELLES VUES ==================== -->
+    <section id="nouveaux" class="section">
+        <h2 class="section-title">🆕 Nouvelles Vues Créatives</h2>
+        <p class="section-subtitle">Concepts additionnels sans référence directe</p>
+        <div class="image-ref">📁 Utiliser n'importe quelle image comme inspiration de style</div>
+
+        <div class="prompts-grid">
+            <div class="prompt-card">
+                <h4>Food Court Animé <span class="style-tag">NEW</span></h4>
+                <div class="prompt-text" onclick="copyPrompt(this)">
+                    Modern food court interior in Miroir Mall Lubumbashi. High contemporary ceilings, multiple
+                    restaurant kiosks with neon signage. Mix of African and international cuisine. Busy family-friendly
+                    atmosphere. Modern seating, natural light from skylights. Clean design with gold accent colors
+                    (#D4AF37). 4K photorealistic render.
+                </div>
+                <div class="copy-hint">Cliquer pour copier</div>
+            </div>
+
+            <div class="prompt-card">
+                <h4>Cinema Multiplex <span class="style-tag">NEW</span></h4>
+                <div class="prompt-text" onclick="copyPrompt(this)">
+                    Multiplex cinema lobby in Miroir Mall. Three screens, contemporary design with red velvet and gold
+                    (#D4AF37) accents. Digital movie posters, modern concession stand. Entertainment arcade visible
+                    (bowling, gaming). Excited African families and moviegoers. Premium entertainment destination 4K
+                    render.
+                </div>
+                <div class="copy-hint">Cliquer pour copier</div>
+            </div>
+
+            <div class="prompt-card">
+                <h4>Bowling & Entertainment <span class="style-tag">NEW</span></h4>
+                <div class="prompt-text" onclick="copyPrompt(this)">
+                    Modern bowling alley inside African shopping mall. Neon lighting, contemporary lane design. Adjacent
+                    arcade with latest games. Families and young adults enjoying entertainment. Premium leisure
+                    destination atmosphere. Black and gold (#D4AF37) color scheme. 4K quality interior visualization.
+                </div>
+                <div class="copy-hint">Cliquer pour copier</div>
+            </div>
+
+            <div class="prompt-card">
+                <h4>Kids Zone Carousel <span class="style-tag">NEW</span></h4>
+                <div class="prompt-text" onclick="copyPrompt(this)">
+                    Children's entertainment area in luxury mall. Beautiful carousel as centerpiece, soft play areas.
+                    Parents watching from seating. Colorful but sophisticated design fitting mall aesthetic. Safe,
+                    clean, premium family destination. Gold accents integrating with overall branding. 4K render.
+                </div>
+                <div class="copy-hint">Cliquer pour copier</div>
+            </div>
+
+            <div class="prompt-card">
+                <h4>Rooftop Event Space <span class="style-tag">NEW</span></h4>
+                <div class="prompt-text" onclick="copyPrompt(this)">
+                    Rooftop amphitheater at Miroir Mall with Lake Kipopo view. Sunset event setting, elegant outdoor
+                    seating. Live performance or corporate event in progress. African VIP guests, sophisticated
+                    atmosphere. Premium destination for events. Gold (#D4AF37) and black decor. Cinematic 4K render.
+                </div>
+                <div class="copy-hint">Cliquer pour copier</div>
+            </div>
+
+            <div class="prompt-card">
+                <h4>Construction Progress <span class="style-tag">STORY</span></h4>
+                <div class="prompt-text" onclick="copyPrompt(this)">
+                    Construction site progress of Miroir Mall Lubumbashi. 20,000 sqm structure under development, cranes
+                    and scaffolding visible. Workers in safety gear, organized site. African sunset backdrop.
+                    Documentary style showing project scale. Hopeful, progress-focused atmosphere. Real development
+                    photography 4K.
+                </div>
+                <div class="copy-hint">Cliquer pour copier</div>
+            </div>
+
+            <div class="prompt-card">
+                <h4>Grand Opening Event <span class="style-tag">STORY</span></h4>
+                <div class="prompt-text" onclick="copyPrompt(this)">
+                    Grand opening ceremony at Miroir Mall late 2026. Red ribbon cutting, VIP guests and media. Crowd of
+                    excited first visitors. Gold and black decorations. Balloons, confetti, festive atmosphere. Historic
+                    moment for Lubumbashi retail. Photojournalistic style 4K quality.
+                </div>
+                <div class="copy-hint">Cliquer pour copier</div>
+            </div>
+
+            <div class="prompt-card">
+                <h4>Luxury Store Interior <span class="style-tag">DETAIL</span></h4>
+                <div class="prompt-text" onclick="copyPrompt(this)">
+                    Interior of high-end boutique inside Miroir Mall. Elegant product displays, premium materials
+                    (marble, gold fixtures). Sophisticated lighting, minimalist luxury aesthetic. Single product focus
+                    with artistic composition. Fashion or jewelry store atmosphere. 4K commercial photography quality.
+                </div>
+                <div class="copy-hint">Cliquer pour copier</div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>🎨 NanoBanana Pro Prompts Collection | MiroirMall / ImmoRose</p>
+        <p>Créé par Aurélien - Data Intelligence & Creative Technology | Décembre 2025</p>
+    </footer>
+
+    <script>
+        function copyPrompt(element) {
+            const text = element.innerText.trim();
+            navigator.clipboard.writeText(text).then(() => {
+                element.style.borderColor = '#D4AF37';
+                element.style.background = '#1A1A1A';
+                setTimeout(() => {
+                    element.style.borderColor = '#3D3D3D';
+                    element.style.background = '#0D0D0D';
+                }, 500);
+            });
+        }
+    </script>
+
+</body>
+
+</html>

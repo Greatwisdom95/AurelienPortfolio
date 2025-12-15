@@ -1,0 +1,40 @@
+Nom,Type_Client,Catégorie,Contact,Localisation,Priorite,Notes
+Hyper Psaro,Supermarché,Anchor Tenant,+243 XXX,Lubumbashi,CONFIRMÉ,Locataire confirmé - déjà réservé
+Carrefour Express,Supermarché,Retail International,franchise@carrefour.com,Kinshasa,HAUTE,Partenariat Hyper Psaro existant
+KFC,Fast-Food,QSR International,kfc.congo@yum.com,Kinshasa/Lubumbashi,HAUTE,Expansion Afrique active 2024-2025
+Burger King,Fast-Food,QSR International,info@grandparade.co.za,Afrique du Sud,HAUTE,Expansion sous-Sahara via Grand Parade
+Pizza Hut,Fast-Food,QSR International,pizzahut.africa@yum.com,Multi,HAUTE,Même groupe que KFC (Yum! Brands)
+Chicken Inn,Fast-Food,QSR Régional,info@innscor.com,Zimbabwe,MOYENNE,Présence Zambie - expansion possible
+Steers,Fast-Food,QSR Régional,info@famousbrands.co.za,Afrique du Sud,MOYENNE,Famous Brands - expansion Afrique
+Debonairs Pizza,Fast-Food,QSR Régional,info@famousbrands.co.za,Afrique du Sud,MOYENNE,Famous Brands - 600+ restaurants Afrique
+LC Waikiki,Mode,Fashion Retail,expansion@lcwaikiki.com,Turquie,HAUTE,Expansion Afrique active - Maroc Kenya
+Mr Price,Mode,Fashion Retail,info@mrprice.com,Afrique du Sud,HAUTE,2200+ magasins Afrique
+Woolworths,Mode,Fashion Retail,info@woolworths.co.za,Afrique du Sud,MOYENNE,Présence Afrique australe
+Game Stores,Electronics,Retail,info@game.co.za,Afrique du Sud,HAUTE,Massmart/Walmart - présence Afrique
+Shoprite/Checkers,Supermarché,Retail International,info@shoprite.co.za,Afrique du Sud,BASSE,A quitté RDC 2022 - retour possible
+Pick n Pay,Supermarché,Retail International,info@pnp.co.za,Afrique du Sud,MOYENNE,Expansion Afrique
+MTN,Télécoms,Services,info@mtn.com,Multi,HAUTE,Présence RDC - flagship store
+Vodacom,Télécoms,Services,info@vodacom.cd,RDC,HAUTE,Opérateur majeur RDC
+Airtel,Télécoms,Services,info@airtel.cd,RDC,HAUTE,Opérateur majeur RDC
+Orange,Télécoms,Services,info@orange.cd,RDC,HAUTE,Opérateur majeur RDC
+Rawbank,Banque,Services Financiers,contact@rawbank.cd,RDC,HAUTE,1ère banque commerciale RDC
+Equity BCDC,Banque,Services Financiers,contact@equitybcdc.cd,RDC,HAUTE,Groupe Equity - expansion RDC
+Trust Merchant Bank,Banque,Services Financiers,info@tmb.cd,RDC,MOYENNE,Banque locale importante
+Western Union,Finance,Services Financiers,info@wu.com,Multi,HAUTE,Transferts diaspora
+Samsung Electronics,Electronics,Retail,info@samsung.com,Multi,HAUTE,Flagship store potentiel
+LG Electronics,Electronics,Retail,info@lg.com,Multi,MOYENNE,Showroom potentiel
+Huawei,Electronics,Retail,info@huawei.com,Multi,MOYENNE,Expansion Afrique
+Nike,Mode,Sports Retail,info@nike.com,Multi,HAUTE,Pas de store standalone RDC
+Adidas,Mode,Sports Retail,info@adidas.com,Multi,HAUTE,Pas de store standalone RDC
+Pharmacie Medi-Market,Pharmacie,Santé,contact@medimarket.cd,RDC,MOYENNE,Chaîne locale
+Sephora,Beauté,Cosmétiques,info@sephora.com,Multi,MOYENNE,Expansion Afrique limitée
+Yves Rocher,Beauté,Cosmétiques,info@yvesrocher.com,France,MOYENNE,Modèle franchise Afrique
+Cineplex/IMAX,Loisirs,Entertainment,info@cineplex.com,Multi,HAUTE,Partenariat cinémas MiroirMall
+Planet Fitness,Fitness,Loisirs,info@planetfitness.com,Multi,MOYENNE,Expansion Afrique du Sud
+Total Energies,Carburant,Services,info@totalenergies.cd,RDC,MOYENNE,Station service parking
+Visa/Mastercard,Finance,Services,info@visa.com,Multi,MOYENNE,Partenariat paiements
+DHL Express,Logistique,Services,info@dhl.cd,RDC,MOYENNE,Point relais
+Starbucks,Café,QSR International,info@starbucks.com,Multi,BASSE,Pas encore en Afrique sub-saharienne
+Nando's,Restaurant,QSR Régional,info@nandos.com,Afrique du Sud,MOYENNE,Présence Afrique australe
+Ocean Basket,Restaurant,Restauration,info@oceanbasket.com,Afrique du Sud,MOYENNE,Expansion Afrique
+Wimpy,Fast-Food,QSR Régional,info@wimpy.co.za,Afrique du Sud,MOYENNE,Présence Afrique
