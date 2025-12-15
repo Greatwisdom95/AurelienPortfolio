@@ -1,7 +1,7 @@
 # Netlify configuration - dist is pre-built in repo
 [build]
   publish = "dist"
-  # No build command needed - dist is already committed
+  command = "echo 'Using pre-built dist folder'"
 
 # Headers for proper MIME types
 [[headers]]
