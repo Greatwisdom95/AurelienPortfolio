@@ -639,7 +639,7 @@ function App() {
                             </div>
                             <video
                                 id="arVideo"
-                                src="/assets/videos/AR%203D/ar-3d-optimized.mp4"
+                                src="/assets/videos/ar-3d/ar-3d-optimized.mp4"
                                 autoPlay muted loop playsInline preload="metadata"
                                 style={{ width: '100%', aspectRatio: '9/16', objectFit: 'cover', borderRadius: '12px' }}
                             />
@@ -672,7 +672,7 @@ function App() {
                             </div>
                             <video
                                 id="foodVideo"
-                                src="/assets/videos/FoodBrand/Mr%20%26%20Mrs%20Fries/fries-optimized.mp4"
+                                src="/assets/videos/food-brand/mr-and-mrs-fries/fries-optimized.mp4"
                                 autoPlay muted loop playsInline preload="metadata"
                                 style={{ width: '100%', aspectRatio: '9/16', objectFit: 'cover', borderRadius: '12px' }}
                             />
@@ -709,7 +709,7 @@ function App() {
                             </div>
                             <video
                                 id="motionVideo"
-                                src="/assets/videos/motion-design/Agrizex/agrizex-logo-1.mp4"
+                                src="/assets/videos/motion-design/agrizex/agrizex-logo-1.mp4"
                                 autoPlay muted loop playsInline preload="metadata"
                                 style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', borderRadius: '12px' }}
                             />
@@ -742,7 +742,7 @@ function App() {
                             </div>
                             <video
                                 id="websiteVideo"
-                                src="/assets/videos/FullStackWebsite/website-optimized.mp4"
+                                src="/assets/videos/full-stack-website/website-optimized.mp4"
                                 autoPlay muted loop playsInline preload="metadata"
                                 style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', borderRadius: '12px' }}
                             />
