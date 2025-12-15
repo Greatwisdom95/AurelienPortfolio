@@ -1,0 +1,32 @@
+# Netlify configuration
+[build]
+  publish = "dist"
+  command = "npm run build"
+
+# Headers for proper MIME types
+[[headers]]
+  for = "/*.mp4"
+  [headers.values]
+    Content-Type = "video/mp4"
+    Access-Control-Allow-Origin = "*"
+
+[[headers]]
+  for = "/*.MP4"
+  [headers.values]
+    Content-Type = "video/mp4"
+    Access-Control-Allow-Origin = "*"
+
+[[headers]]
+  for = "/assets/videos/*"
+  [headers.values]
+    Content-Type = "video/mp4"
+    Access-Control-Allow-Origin = "*"
+
+[[headers]]
+  for = "/*.webp"
+  [headers.values]
+    Content-Type = "image/webp"
+
+# Large file support
+[build.processing]
+  skip_processing = true

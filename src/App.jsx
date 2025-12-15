@@ -639,7 +639,7 @@ function App() {
                             </div>
                             <video
                                 id="arVideo"
-                                src="/assets/videos/AR 3D/5B2ECB90-3246-4ACA-875E-474480F6AA4F.mp4"
+                                src="/assets/videos/AR%203D/5B2ECB90-3246-4ACA-875E-474480F6AA4F.mp4"
                                 autoPlay muted loop playsInline preload="metadata"
                                 style={{ width: '100%', aspectRatio: '9/16', objectFit: 'cover', borderRadius: '12px' }}
                             />
@@ -672,7 +672,7 @@ function App() {
                             </div>
                             <video
                                 id="foodVideo"
-                                src="/assets/videos/FoodBrand/Mr & Mrs Fries/1A54FC2C-6C0C-4A94-B579-B8D862F92921.MP4"
+                                src="/assets/videos/FoodBrand/Mr%20%26%20Mrs%20Fries/1A54FC2C-6C0C-4A94-B579-B8D862F92921.MP4"
                                 autoPlay muted loop playsInline preload="metadata"
                                 style={{ width: '100%', aspectRatio: '9/16', objectFit: 'cover', borderRadius: '12px' }}
                             />
@@ -742,7 +742,7 @@ function App() {
                             </div>
                             <video
                                 id="websiteVideo"
-                                src="/assets/videos/FullStackWebsite/jolisite website (1).mp4"
+                                src="/assets/videos/FullStackWebsite/jolisite%20website%20%281%29.mp4"
                                 autoPlay muted loop playsInline preload="metadata"
                                 style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', borderRadius: '12px' }}
                             />
@@ -924,7 +924,7 @@ function App() {
                         </div>
                         <video
                             id="immoroseVideo"
-                            src="/assets/videos/FeaturedCLIENTImmorose/Logo immorose animation/084FEDFC-0985-4CFC-A52D-104CA7011B9D (1).mp4"
+                            src="/assets/videos/FeaturedCLIENTImmorose/Logo%20immorose%20animation/084FEDFC-0985-4CFC-A52D-104CA7011B9D%20%281%29.mp4"
                             autoPlay muted loop playsInline preload="metadata"
                             style={{ width: '100%', aspectRatio: '9/16', objectFit: 'cover', borderRadius: '12px' }}
                         />
@@ -1024,7 +1024,7 @@ function App() {
                         </div>
                         <video
                             id="miroirMallVideo"
-                            src="/assets/videos/FeaturedCLIENTImmorose/Logo Miroir mall animation/6E81B99B-68FD-4636-8543-679E9172DBF8.mp4"
+                            src="/assets/videos/FeaturedCLIENTImmorose/Logo%20Miroir%20mall%20animation/6E81B99B-68FD-4636-8543-679E9172DBF8.mp4"
                             autoPlay muted loop playsInline preload="metadata"
                             style={{ width: '100%', aspectRatio: '9/16', objectFit: 'cover', borderRadius: '12px' }}
                         />
