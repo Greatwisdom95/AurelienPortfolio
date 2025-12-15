@@ -147,11 +147,22 @@
                 document.getElementById('preloader').classList.add('loaded');
             }, 500);
             
-            // Register Service Worker for caching
+            // Force Service Worker update and clear old caches
             if ('serviceWorker' in navigator) {
+                // Clear all caches first to fix video loading issues
+                caches.keys().then(function(names) {
+                    names.forEach(function(name) {
+                        if (name.includes('-v2') || name.includes('-v1')) {
+                            caches.delete(name);
+                        }
+                    });
+                });
+                
                 navigator.serviceWorker.register('/sw.js')
                     .then(function(reg) {
                         console.log('Service Worker registered:', reg.scope);
+                        // Force update check
+                        reg.update();
                     })
                     .catch(function(err) {
                         console.log('Service Worker registration failed:', err);
