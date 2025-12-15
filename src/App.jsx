@@ -348,7 +348,7 @@ const ParallaxImage = ({ src, alt, speed = 0.5 }) => {
 }
 
 // ==================== MAGNETIC BUTTON ====================
-const MagneticButton = ({ children, href = '#' }) => {
+const MagneticButton = ({ children, href = '#', target, rel }) => {
     const ref = useRef(null)
     const [position, setPosition] = useState({ x: 0, y: 0 })
 
@@ -366,6 +366,8 @@ const MagneticButton = ({ children, href = '#' }) => {
         <motion.a
             ref={ref}
             href={href}
+            target={target}
+            rel={rel}
             onMouseMove={handleMouse}
             onMouseLeave={reset}
             animate={{ x: position.x, y: position.y }}
@@ -1461,7 +1463,11 @@ function App() {
                         </p>
                     </AnimatedText>
                     <AnimatedText delay={0.2}>
-                        <MagneticButton href="/assets/documents/ImmoRose_Rapport_Activite_2025.xlsx">
+                        <MagneticButton 
+                            href="https://1drv.ms/x/c/9c6f3514f4638c89/IQAQzTjEfVnBSKPQt3kLrxfhAXJllgowTr5KznaHNEEGdDQ?e=26V0Mf" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                        >
                             Access Full Report →
                         </MagneticButton>
                     </AnimatedText>
