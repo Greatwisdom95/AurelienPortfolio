@@ -85,14 +85,16 @@ const OptimizedVideo = ({ id, src, aspectRatio = '9/16', title, subtitle }) => {
     const [isLoaded, setIsLoaded] = useState(false)
     const [isMuted, setIsMuted] = useState(true)
     const [hasError, setHasError] = useState(false)
+    const [autoplayBlocked, setAutoplayBlocked] = useState(false)
     const isMobile = useIsMobile()
     
-    // Intersection Observer pour lazy loading et autoplay
+    // Intersection Observer pour lazy loading + pause hors écran
     useEffect(() => {
         const observer = new IntersectionObserver(
             ([entry]) => {
-                if (entry.isIntersecting) {
-                    setIsInView(true)
+                setIsInView(entry.isIntersecting)
+                if (!entry.isIntersecting && videoRef.current) {
+                    videoRef.current.pause()
                 }
             },
             { rootMargin: '100px', threshold: 0.1 }
@@ -101,56 +103,44 @@ const OptimizedVideo = ({ id, src, aspectRatio = '9/16', title, subtitle }) => {
         return () => observer.disconnect()
     }, [])
     
-    // Play video when loaded and in view
+    // Try autoplay when in view (mobile included). If blocked, show explicit overlay.
     useEffect(() => {
-        if (!videoRef.current || !isInView || !isLoaded) return
+        if (!videoRef.current || !isInView) return
         
         const playVideo = async () => {
             try {
-                videoRef.current.muted = true // Force muted for autoplay
+                // Autoplay with sound is blocked on most mobile browsers.
+                // We default to muted autoplay, and let the user unmute via button.
+                videoRef.current.muted = true
+                setIsMuted(true)
+                setAutoplayBlocked(false)
                 await videoRef.current.play()
             } catch (err) {
-                // Autoplay blocked - user needs to interact
-                console.log('Autoplay blocked, waiting for user interaction')
+                setAutoplayBlocked(true)
             }
         }
         
         playVideo()
-    }, [isInView, isLoaded])
-    
-    // Pause when out of view to save resources
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (videoRef.current && isLoaded) {
-                    if (entry.isIntersecting) {
-                        videoRef.current.play().catch(() => {})
-                    } else {
-                        videoRef.current.pause()
-                    }
-                }
-            },
-            { threshold: 0.1 }
-        )
-        if (containerRef.current) observer.observe(containerRef.current)
-        return () => observer.disconnect()
-    }, [isLoaded])
+    }, [isInView])
     
     const toggleMute = useCallback(() => {
-        if (videoRef.current) {
-            videoRef.current.muted = !videoRef.current.muted
-            setIsMuted(videoRef.current.muted)
-            // Try to play if paused (for mobile)
-            if (videoRef.current.paused) {
-                videoRef.current.play().catch(() => {})
-            }
+        if (!videoRef.current) return
+        setAutoplayBlocked(false)
+        videoRef.current.muted = !videoRef.current.muted
+        setIsMuted(videoRef.current.muted)
+        if (videoRef.current.paused) {
+            videoRef.current.play().catch(() => {
+                setAutoplayBlocked(true)
+            })
         }
     }, [])
     
     const handleTap = useCallback(() => {
-        if (videoRef.current && videoRef.current.paused) {
-            videoRef.current.play().catch(() => {})
-        }
+        if (!videoRef.current) return
+        setAutoplayBlocked(false)
+        videoRef.current.play().catch(() => {
+            setAutoplayBlocked(true)
+        })
     }, [])
     
     return (
@@ -231,33 +221,31 @@ const OptimizedVideo = ({ id, src, aspectRatio = '9/16', title, subtitle }) => {
                     </div>
                 )}
                 
-                {/* Video element - only render src when in view */}
-                {isInView && (
-                    <video
-                        ref={videoRef}
-                        id={id}
-                        muted
-                        loop
-                        playsInline
-                        webkit-playsinline="true"
-                        preload="auto"
-                        onLoadedData={() => setIsLoaded(true)}
-                        onError={() => setHasError(true)}
-                        onCanPlay={() => setIsLoaded(true)}
-                        style={{ 
-                            width: '100%', 
-                            height: '100%', 
-                            objectFit: 'cover',
-                            opacity: isLoaded ? 1 : 0,
-                            transition: 'opacity 0.3s ease',
-                        }}
-                    >
-                        <source src={src} type="video/mp4" />
-                    </video>
-                )}
+                {/* Video element - src only when in view */}
+                <video
+                    ref={videoRef}
+                    id={id}
+                    src={isInView ? src : undefined}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    webkit-playsinline="true"
+                    preload="metadata"
+                    onLoadedData={() => setIsLoaded(true)}
+                    onError={() => setHasError(true)}
+                    onCanPlay={() => setIsLoaded(true)}
+                    style={{ 
+                        width: '100%', 
+                        height: '100%', 
+                        objectFit: 'cover',
+                        opacity: isLoaded ? 1 : 0,
+                        transition: 'opacity 0.3s ease',
+                    }}
+                />
                 
-                {/* Mobile play hint */}
-                {isMobile && isLoaded && (
+                {/* Show hint only if autoplay is blocked */}
+                {isMobile && autoplayBlocked && (
                     <div style={{
                         position: 'absolute',
                         bottom: '1rem',
@@ -1486,12 +1474,22 @@ function App() {
                     </AnimatedText>
                     <AnimatedText delay={0.2}>
                         <MagneticButton 
-                            href="https://1drv.ms/x/c/9c6f3514f4638c89/IQAQzTjEfVnBSKPQt3kLrxfhAXJllgowTr5KznaHNEEGdDQ?e=26V0Mf" 
+                            href="/assets/documents/ImmoRose_Rapport_Activite_2025.xlsx" 
                             target="_blank" 
                             rel="noopener noreferrer"
                         >
                             Access Full Report →
                         </MagneticButton>
+                    </AnimatedText>
+                    <AnimatedText delay={0.25}>
+                        <a
+                            href="https://1drv.ms/x/c/9c6f3514f4638c89/IQAQzTjEfVnBSKPQt3kLrxfhAXJllgowTr5KznaHNEEGdDQ?e=26V0Mf"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{ display: 'inline-block', marginTop: '1rem', fontSize: '0.85rem', opacity: 0.6, textDecoration: 'none', color: '#fff' }}
+                        >
+                            Alternative link (OneDrive) →
+                        </a>
                     </AnimatedText>
                     <AnimatedText delay={0.3}>
                         <p style={{ fontSize: '0.75rem', opacity: 0.35, marginTop: '2rem', fontStyle: 'italic', maxWidth: '600px' }}>
