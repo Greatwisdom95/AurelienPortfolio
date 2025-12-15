@@ -1,9 +1,149 @@
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect, useState, useCallback } from 'react'
 import { motion, useScroll, useTransform, useSpring, useInView, AnimatePresence } from 'framer-motion'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
+
+// ==================== MOBILE DETECTION HOOK ====================
+const useIsMobile = () => {
+    const [isMobile, setIsMobile] = useState(false)
+    
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 768)
+        checkMobile()
+        window.addEventListener('resize', checkMobile)
+        return () => window.removeEventListener('resize', checkMobile)
+    }, [])
+    
+    return isMobile
+}
+
+// ==================== OPTIMIZED IMAGE COMPONENT ====================
+const OptimizedImage = ({ src, alt, height = 400, aspectRatio = 'auto' }) => {
+    const [isLoaded, setIsLoaded] = useState(false)
+    const [isInView, setIsInView] = useState(false)
+    const imgRef = useRef(null)
+    
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setIsInView(true)
+                    observer.disconnect()
+                }
+            },
+            { rootMargin: '100px' }
+        )
+        if (imgRef.current) observer.observe(imgRef.current)
+        return () => observer.disconnect()
+    }, [])
+    
+    // Calculate width based on typical image aspect ratios
+    const width = aspectRatio === 'auto' ? Math.round(height * 0.75) : Math.round(height * aspectRatio)
+    
+    return (
+        <div
+            ref={imgRef}
+            style={{
+                height: `${height}px`,
+                width: width,
+                minWidth: width,
+                marginRight: '1rem',
+                background: isLoaded ? 'transparent' : 'linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%)',
+                borderRadius: '4px',
+                overflow: 'hidden',
+            }}
+        >
+            {isInView && (
+                <img
+                    src={src}
+                    alt={alt}
+                    width={width}
+                    height={height}
+                    loading="lazy"
+                    decoding="async"
+                    onLoad={() => setIsLoaded(true)}
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        opacity: isLoaded ? 1 : 0,
+                        transition: 'opacity 0.3s ease',
+                    }}
+                />
+            )}
+        </div>
+    )
+}
+
+// ==================== OPTIMIZED VIDEO COMPONENT ====================
+const OptimizedVideo = ({ id, src, aspectRatio = '9/16', ariaLabel }) => {
+    const videoRef = useRef(null)
+    const [isInView, setIsInView] = useState(false)
+    const [isPlaying, setIsPlaying] = useState(false)
+    const isMobile = useIsMobile()
+    
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                setIsInView(entry.isIntersecting)
+                if (entry.isIntersecting && videoRef.current) {
+                    videoRef.current.play().catch(() => {})
+                    setIsPlaying(true)
+                } else if (videoRef.current) {
+                    videoRef.current.pause()
+                    setIsPlaying(false)
+                }
+            },
+            { threshold: 0.3 }
+        )
+        if (videoRef.current) observer.observe(videoRef.current)
+        return () => observer.disconnect()
+    }, [])
+    
+    const toggleMute = useCallback(() => {
+        if (videoRef.current) {
+            videoRef.current.muted = !videoRef.current.muted
+        }
+    }, [])
+    
+    return (
+        <>
+            <video
+                ref={videoRef}
+                id={id}
+                src={isInView || !isMobile ? src : undefined}
+                poster={isMobile ? undefined : undefined}
+                autoPlay={!isMobile}
+                muted
+                loop
+                playsInline
+                preload={isMobile ? 'none' : 'metadata'}
+                style={{ width: '100%', aspectRatio, objectFit: 'cover', borderRadius: '12px' }}
+            />
+            <button
+                onClick={toggleMute}
+                aria-label={ariaLabel || 'Toggle video sound'}
+                style={{ 
+                    background: 'none', 
+                    border: 'none', 
+                    color: '#fff', 
+                    cursor: 'pointer', 
+                    opacity: 0.5, 
+                    padding: '8px',
+                    position: 'absolute',
+                    top: '1rem',
+                    right: '1rem',
+                }}
+            >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                    <path d="M11 5L6 9H2v6h4l5 4V5z" /><path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+                </svg>
+            </button>
+        </>
+    )
+}
 
 // ==================== STYLES ====================
 const styles = {
@@ -630,9 +770,10 @@ function App() {
                                 </div>
                                 <button
                                     onClick={() => { document.getElementById('arVideo').muted = !document.getElementById('arVideo').muted; }}
+                                    aria-label="Toggle AR 3D video sound"
                                     style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', opacity: 0.5, padding: '4px' }}
                                 >
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                                         <path d="M11 5L6 9H2v6h4l5 4V5z" /><path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
                                     </svg>
                                 </button>
@@ -663,9 +804,10 @@ function App() {
                                 </div>
                                 <button
                                     onClick={() => { document.getElementById('foodVideo').muted = !document.getElementById('foodVideo').muted; }}
+                                    aria-label="Toggle Food Branding video sound"
                                     style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', opacity: 0.5, padding: '4px' }}
                                 >
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                                         <path d="M11 5L6 9H2v6h4l5 4V5z" /><path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
                                     </svg>
                                 </button>
@@ -700,9 +842,10 @@ function App() {
                                 </div>
                                 <button
                                     onClick={() => { document.getElementById('motionVideo').muted = !document.getElementById('motionVideo').muted; }}
+                                    aria-label="Toggle Motion Design video sound"
                                     style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', opacity: 0.5, padding: '4px' }}
                                 >
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                                         <path d="M11 5L6 9H2v6h4l5 4V5z" /><path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
                                     </svg>
                                 </button>
@@ -733,9 +876,10 @@ function App() {
                                 </div>
                                 <button
                                     onClick={() => { document.getElementById('websiteVideo').muted = !document.getElementById('websiteVideo').muted; }}
+                                    aria-label="Toggle Website video sound"
                                     style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', opacity: 0.5, padding: '4px' }}
                                 >
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                                         <path d="M11 5L6 9H2v6h4l5 4V5z" /><path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
                                     </svg>
                                 </button>
@@ -771,18 +915,7 @@ function App() {
                             '/assets/Images/ClothesBrand/Mokonzi/ComfyUI_00374_.webp',
                             '/assets/Images/ClothesBrand/Mokonzi/ComfyUI_00383_.webp',
                         ].map((src, i) => (
-                            <img
-                                key={i}
-                                src={src}
-                                alt={`Mokonzi ${i}`}
-                                loading="lazy"
-                                style={{
-                                    height: '400px',
-                                    width: 'auto',
-                                    objectFit: 'cover',
-                                    marginRight: '1rem',
-                                }}
-                            />
+                            <OptimizedImage key={i} src={src} alt={`Mokonzi Fashion ${i + 1}`} height={400} aspectRatio={0.75} />
                         ))}
                     </MarqueeText>
                 </div>
@@ -806,18 +939,7 @@ function App() {
                             '/assets/Images/DrinksBrand/Brasimba/ComfyUI_00098_.webp',
                             '/assets/Images/DrinksBrand/Brasimba/ComfyUI_00069_.webp',
                         ].map((src, i) => (
-                            <img
-                                key={i}
-                                src={src}
-                                alt={`Brasimba ${i}`}
-                                loading="lazy"
-                                style={{
-                                    height: '350px',
-                                    width: 'auto',
-                                    objectFit: 'cover',
-                                    marginRight: '1rem',
-                                }}
-                            />
+                            <OptimizedImage key={i} src={src} alt={`Brasimba Beverage ${i + 1}`} height={350} aspectRatio={0.75} />
                         ))}
                     </MarqueeText>
                 </div>
@@ -842,18 +964,7 @@ function App() {
                             '/assets/Images/ClothesBrand/LubumArt/LubumArt_Fashion_03.webp',
                             '/assets/Images/ClothesBrand/LubumArt/LubumArt_Fashion_04.webp',
                         ].map((src, i) => (
-                            <img
-                                key={i}
-                                src={src}
-                                alt={`LubumArt ${i}`}
-                                loading="lazy"
-                                style={{
-                                    height: '400px',
-                                    width: 'auto',
-                                    objectFit: 'cover',
-                                    marginRight: '1rem',
-                                }}
-                            />
+                            <OptimizedImage key={i} src={src} alt={`LubumArt Fashion ${i + 1}`} height={400} aspectRatio={0.75} />
                         ))}
                     </MarqueeText>
                 </div>
@@ -915,9 +1026,10 @@ function App() {
                             </div>
                             <button
                                 onClick={() => { document.getElementById('immoroseVideo').muted = !document.getElementById('immoroseVideo').muted; }}
+                                aria-label="Toggle ImmoRose video sound"
                                 style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', opacity: 0.5, padding: '4px' }}
                             >
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                                     <path d="M11 5L6 9H2v6h4l5 4V5z" /><path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
                                 </svg>
                             </button>
@@ -1015,9 +1127,10 @@ function App() {
                             </div>
                             <button
                                 onClick={() => { document.getElementById('miroirMallVideo').muted = !document.getElementById('miroirMallVideo').muted; }}
+                                aria-label="Toggle Miroir Mall video sound"
                                 style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', opacity: 0.5, padding: '4px' }}
                             >
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                                     <path d="M11 5L6 9H2v6h4l5 4V5z" /><path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
                                 </svg>
                             </button>
@@ -1077,18 +1190,7 @@ function App() {
                             '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Miroir mall building/3b315225-e613-4730-bc90-00c1cd0d79b7.webp',
                             '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Miroir mall building/b3cbc484-7344-4a14-a234-294321989edf.webp',
                         ].map((src, i) => (
-                            <img
-                                key={i}
-                                src={src}
-                                alt={`Miroir Mall Building ${i + 1}`}
-                                loading="lazy"
-                                style={{
-                                    height: '400px',
-                                    width: 'auto',
-                                    objectFit: 'cover',
-                                    marginRight: '1rem',
-                                }}
-                            />
+                            <OptimizedImage key={i} src={src} alt={`Miroir Mall Building exterior ${i + 1}`} height={400} aspectRatio={1.5} />
                         ))}
                     </MarqueeText>
                 </div>
@@ -1114,18 +1216,7 @@ function App() {
                             '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Le Sheesha Lounge/e68e5b78-d404-419e-91de-a07685cd9bde.webp',
                             '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Le Sheesha Lounge/f4f365c4-1201-436b-aa70-ecb801e7228c.webp',
                         ].map((src, i) => (
-                            <img
-                                key={i}
-                                src={src}
-                                alt={`Sheesha Lounge ${i + 1}`}
-                                loading="lazy"
-                                style={{
-                                    height: '400px',
-                                    width: 'auto',
-                                    objectFit: 'cover',
-                                    marginRight: '1rem',
-                                }}
-                            />
+                            <OptimizedImage key={i} src={src} alt={`Le Sheesha Lounge interior ${i + 1}`} height={400} aspectRatio={1.5} />
                         ))}
                     </MarqueeText>
                 </div>
@@ -1154,18 +1245,7 @@ function App() {
                             '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Banquet Hall/cba2fa3d-0b1e-48f8-a95c-90527609c0d3.webp',
                             '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Banquet Hall/f504de92-fda8-40d2-8f5e-2b4af3b81684.webp',
                         ].map((src, i) => (
-                            <img
-                                key={i}
-                                src={src}
-                                alt={`Banquet Hall ${i + 1}`}
-                                loading="lazy"
-                                style={{
-                                    height: '400px',
-                                    width: 'auto',
-                                    objectFit: 'cover',
-                                    marginRight: '1rem',
-                                }}
-                            />
+                            <OptimizedImage key={i} src={src} alt={`Banquet Hall interior ${i + 1}`} height={400} aspectRatio={1.5} />
                         ))}
                     </MarqueeText>
                 </div>
