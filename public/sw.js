@@ -1,8 +1,8 @@
 // Service Worker for Aurelien Portfolio
-const CACHE_NAME = 'aurelien-portfolio-v2';
-const STATIC_CACHE = 'static-v2';
-const DYNAMIC_CACHE = 'dynamic-v2';
-const PRECACHE_CACHE = 'precache-v2';
+const CACHE_NAME = 'aurelien-portfolio-v3';
+const STATIC_CACHE = 'static-v3';
+const DYNAMIC_CACHE = 'dynamic-v3';
+const PRECACHE_CACHE = 'precache-v3';
 
 // Assets to cache immediately
 const STATIC_ASSETS = [
@@ -74,34 +74,9 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Videos: Cache-first strategy with range request support
+  // Videos: Network-only (no caching to avoid conflicts)
   if (request.url.includes('/assets/videos/')) {
-    // Range requests are commonly used by <video> for seeking/streaming.
-    // Caching them without special handling can break playback, so bypass cache.
-    if (request.headers.has('range')) {
-      event.respondWith(fetch(request));
-      return;
-    }
-    event.respondWith(
-      caches.open(DYNAMIC_CACHE).then(async (cache) => {
-        const cachedResponse = await cache.match(request);
-        if (cachedResponse) {
-          return cachedResponse;
-        }
-        
-        try {
-          const networkResponse = await fetch(request);
-          // Only cache full responses (avoid caching partial 206 responses).
-          if (networkResponse.ok && networkResponse.status === 200) {
-            cache.put(request, networkResponse.clone());
-          }
-          return networkResponse;
-        } catch (error) {
-          return new Response('Video unavailable', { status: 503 });
-        }
-      })
-    );
-    return;
+    return; // Let browser handle video requests directly
   }
 
   // Images: Cache-first
