@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Aurelien Karydas — Creative Technologist based in Lubumbashi. Expert in AI, Web Development, and Digital Innovation." />
+    <meta name="theme-color" content="#000000" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/assets/icons/icon-192.svg">
+    <link rel="icon" type="image/svg+xml" href="/assets/icons/icon-192.svg">
+    
+    <!-- Preconnect for faster font loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Preload critical font -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800&display=swap"></noscript>
+    
+    <!-- Load remaining weights async -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    
+    <title>Aurelien — Creative Technologist</title>
+    
+    <!-- Critical CSS inline -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Preloader styles */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        #preloader.loaded {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-100%);
+        }
+
+        .loader {
+            width: 60px;
+            height: 60px;
+            position: relative;
+        }
+
+        .loader::before,
+        .loader::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            animation: pulsOut 1.8s ease-in-out infinite;
+            filter: drop-shadow(0 0 1rem rgba(255, 255, 255, 0.75));
+        }
+
+        .loader::before {
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .loader::after {
+            width: 50%;
+            height: 50%;
+            top: 25%;
+            left: 25%;
+            background: #fff;
+            animation-delay: -0.9s;
+        }
+
+        @keyframes pulsOut {
+            0%, 100% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .loader-text {
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            color: rgba(255, 255, 255, 0.5);
+            white-space: nowrap;
+        }
+        
+        /* Video loader spinner */
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+  <script type="module" crossorigin src="/assets/index-2MXijGwD.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/vendor-react-wGySg1uH.js">
+  <link rel="modulepreload" crossorigin href="/assets/vendor-gsap-Cy3i8ghA.js">
+  <link rel="modulepreload" crossorigin href="/assets/vendor-motion-D1Q9_sWi.js">
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader">
+            <span class="loader-text">LOADING</span>
+        </div>
+    </div>
+    
+    <div id="root"></div>
+    
+    <!-- Remove preloader and register service worker -->
+    <script>
+        window.addEventListener('load', function() {
+            // Hide preloader
+            setTimeout(function() {
+                document.getElementById('preloader').classList.add('loaded');
+            }, 500);
+            
+            // Force Service Worker update and clear old caches
+            if ('serviceWorker' in navigator) {
+                // Clear all caches first to fix video loading issues
+                caches.keys().then(function(names) {
+                    names.forEach(function(name) {
+                        if (name.includes('-v2') || name.includes('-v1')) {
+                            caches.delete(name);
+                        }
+                    });
+                });
+                
+                navigator.serviceWorker.register('/sw.js')
+                    .then(function(reg) {
+                        console.log('Service Worker registered:', reg.scope);
+                        // Force update check
+                        reg.update();
+                    })
+                    .catch(function(err) {
+                        console.log('Service Worker registration failed:', err);
+                    });
+            }
+        });
+    </script>
+</body>
+
+</html>
