@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { resolve } from 'path'
 
 export default defineConfig({
     plugins: [react()],
@@ -8,8 +9,12 @@ export default defineConfig({
         open: true
     },
     build: {
-        // Optimize chunk splitting
+        // Multi-page build: index.html (portfolio) + jpo.html (JPO page)
         rollupOptions: {
+            input: {
+                main: resolve(__dirname, 'index.html'),
+                jpo: resolve(__dirname, 'jpo.html'),
+            },
             output: {
                 manualChunks: {
                     // Split vendor chunks for better caching
