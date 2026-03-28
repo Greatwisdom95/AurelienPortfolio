@@ -75,12 +75,12 @@ self.addEventListener('fetch', (event) => {
   }
 
   // Videos: Network-only (no caching to avoid conflicts)
-  if (request.url.includes('/AurelienPortfolio/assets/videos/')) {
+  if (request.url.includes('/assets/videos/')) {
     return; // Let browser handle video requests directly
   }
 
   // Images: Cache-first
-  if (request.url.includes('/AurelienPortfolio/assets/Images/') || request.destination === 'image') {
+  if (request.url.includes('/assets/Images/') || request.destination === 'image') {
     event.respondWith(
       caches.open(DYNAMIC_CACHE).then(async (cache) => {
         const cachedResponse = await cache.match(request);
@@ -120,7 +120,7 @@ self.addEventListener('fetch', (event) => {
   }
 
   // JS/CSS: Stale-while-revalidate
-  if (request.url.includes('/AurelienPortfolio/assets/') && (request.url.endsWith('.js') || request.url.endsWith('.css'))) {
+  if (request.url.includes('/assets/') && (request.url.endsWith('.js') || request.url.endsWith('.css'))) {
     event.respondWith(
       caches.open(STATIC_CACHE).then(async (cache) => {
         const cachedResponse = await cache.match(request);
