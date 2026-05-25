@@ -35,7 +35,7 @@ const OptimizedImage = ({ src, alt, height = 400, aspectRatio = 'auto' }) => {
                     observer.disconnect()
                 }
             },
-            { rootMargin: '100px' }
+            { rootMargin: '700px' }
         )
         if (imgRef.current) observer.observe(imgRef.current)
         return () => observer.disconnect()
@@ -99,7 +99,7 @@ const OptimizedVideo = ({ id, src, aspectRatio = '9/16', title, subtitle }) => {
                     videoRef.current.pause()
                 }
             },
-            { rootMargin: '100px', threshold: 0.1 }
+            { rootMargin: '500px', threshold: 0.05 }
         )
         if (containerRef.current) observer.observe(containerRef.current)
         return () => observer.disconnect()
