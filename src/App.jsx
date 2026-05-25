@@ -1,6 +1,8 @@
 import { useRef, useEffect, useState, useCallback } from 'react'
 import { motion, useScroll, useTransform, useSpring, useInView, AnimatePresence } from 'framer-motion'
 import { gsap } from 'gsap'
+
+const assetUrl = (path) => `${import.meta.env.BASE_URL}${String(path).replace(/^\//, '')}`
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -886,7 +888,7 @@ function App() {
                         >
                             <OptimizedVideo
                                 id="arVideo"
-                                src="/assets/videos/ar-3d/ar-3d-optimized.mp4"
+                                src={assetUrl("/assets/videos/ar-3d/ar-3d-optimized.mp4")}
                                 aspectRatio="9/16"
                                 subtitle="AR / 3D"
                                 title="Immersive 3D Capture"
@@ -901,7 +903,7 @@ function App() {
                         >
                             <OptimizedVideo
                                 id="foodVideo"
-                                src="/assets/videos/food-brand/mr-and-mrs-fries/fries-optimized.mp4"
+                                src={assetUrl("/assets/videos/food-brand/mr-and-mrs-fries/fries-optimized.mp4")}
                                 aspectRatio="9/16"
                                 subtitle="Food Branding"
                                 title="Mr & Mrs Fries"
@@ -919,7 +921,7 @@ function App() {
                         >
                             <OptimizedVideo
                                 id="motionVideo"
-                                src="/assets/videos/motion-design/Agrizex/agrizex-logo-1.mp4"
+                                src={assetUrl("/assets/videos/motion-design/Agrizex/agrizex-logo-1.mp4")}
                                 aspectRatio="16/9"
                                 subtitle="Motion Design"
                                 title="Logo Animation"
@@ -934,7 +936,7 @@ function App() {
                         >
                             <OptimizedVideo
                                 id="websiteVideo"
-                                src="/assets/videos/full-stack-website/website-optimized.mp4"
+                                src={assetUrl("/assets/videos/full-stack-website/website-optimized.mp4")}
                                 aspectRatio="16/9"
                                 subtitle="Web Development"
                                 title="Website Showcase"
@@ -1066,7 +1068,7 @@ function App() {
                     >
                         <OptimizedVideo
                             id="immoroseVideo"
-                            src="/assets/videos/FeaturedCLIENTImmorose/Logo%20immorose%20animation/immorose-optimized.mp4"
+                            src={assetUrl("/assets/videos/FeaturedCLIENTImmorose/Logo%20immorose%20animation/immorose-optimized.mp4")}
                             aspectRatio="9/16"
                             subtitle="Brand Identity"
                             title="ImmoRose — Logo Animation"
@@ -1150,7 +1152,7 @@ function App() {
                     >
                         <OptimizedVideo
                             id="miroirMallVideo"
-                            src="/assets/videos/FeaturedCLIENTImmorose/Logo%20Miroir%20mall%20animation/miroirmall-optimized.mp4"
+                            src={assetUrl("/assets/videos/FeaturedCLIENTImmorose/Logo%20Miroir%20mall%20animation/miroirmall-optimized.mp4")}
                             aspectRatio="9/16"
                             subtitle="Motion Design"
                             title="Miroir Mall — Logo Animation"
@@ -1476,7 +1478,7 @@ function App() {
                     </AnimatedText>
                     <AnimatedText delay={0.2}>
                         <MagneticButton 
-                            href="/assets/documents/ImmoRose_Rapport_Activite_2025.xlsx" 
+                            href={assetUrl("/assets/documents/ImmoRose_Rapport_Activite_2025.xlsx")} 
                             target="_blank" 
                             rel="noopener noreferrer"
                         >
@@ -1584,7 +1586,7 @@ function App() {
                 <AnimatedText delay={0.6}>
                     <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginTop: '2rem', flexWrap: 'wrap' }}>
                         <a
-                            href="/skills-resume.html"
+                            href={assetUrl("/skills-resume.html")}
                             target="_blank"
                             style={{
                                 display: 'inline-block',
@@ -1609,7 +1611,7 @@ function App() {
                             Skills & Expertise →
                         </a>
                         <a
-                            href="/cv.html"
+                            href={assetUrl("/cv.html")}
                             target="_blank"
                             style={{
                                 display: 'inline-block',
