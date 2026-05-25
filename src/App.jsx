@@ -959,12 +959,12 @@ function App() {
                     </div>
                     <MarqueeText speed={40}>
                         {[
-                            '/assets/Images/ClothesBrand/Mokonzi/Mokonzi_00006_.webp',
-                            '/assets/Images/ClothesBrand/Mokonzi/ComfyUI_00336_.webp',
-                            '/assets/Images/ClothesBrand/Mokonzi/ComfyUI_00338_.webp',
-                            '/assets/Images/ClothesBrand/Mokonzi/ComfyUI_00339_.webp',
-                            '/assets/Images/ClothesBrand/Mokonzi/ComfyUI_00374_.webp',
-                            '/assets/Images/ClothesBrand/Mokonzi/ComfyUI_00383_.webp',
+                            assetUrl('/assets/Images/ClothesBrand/Mokonzi/Mokonzi_00006_.webp'),
+                            assetUrl('/assets/Images/ClothesBrand/Mokonzi/ComfyUI_00336_.webp'),
+                            assetUrl('/assets/Images/ClothesBrand/Mokonzi/ComfyUI_00338_.webp'),
+                            assetUrl('/assets/Images/ClothesBrand/Mokonzi/ComfyUI_00339_.webp'),
+                            assetUrl('/assets/Images/ClothesBrand/Mokonzi/ComfyUI_00374_.webp'),
+                            assetUrl('/assets/Images/ClothesBrand/Mokonzi/ComfyUI_00383_.webp'),
                         ].map((src, i) => (
                             <OptimizedImage key={i} src={src} alt={`Mokonzi Fashion ${i + 1}`} height={400} aspectRatio={0.75} />
                         ))}
@@ -985,10 +985,10 @@ function App() {
                     </div>
                     <MarqueeText speed={35}>
                         {[
-                            '/assets/Images/DrinksBrand/Brasimba/ComfyUI_00098_.webp',
-                            '/assets/Images/DrinksBrand/Brasimba/ComfyUI_00069_.webp',
-                            '/assets/Images/DrinksBrand/Brasimba/ComfyUI_00098_.webp',
-                            '/assets/Images/DrinksBrand/Brasimba/ComfyUI_00069_.webp',
+                            assetUrl('/assets/Images/DrinksBrand/Brasimba/ComfyUI_00098_.webp'),
+                            assetUrl('/assets/Images/DrinksBrand/Brasimba/ComfyUI_00069_.webp'),
+                            assetUrl('/assets/Images/DrinksBrand/Brasimba/ComfyUI_00098_.webp'),
+                            assetUrl('/assets/Images/DrinksBrand/Brasimba/ComfyUI_00069_.webp'),
                         ].map((src, i) => (
                             <OptimizedImage key={i} src={src} alt={`Brasimba Beverage ${i + 1}`} height={350} aspectRatio={0.75} />
                         ))}
@@ -1009,11 +1009,11 @@ function App() {
                     </div>
                     <MarqueeText speed={30}>
                         {[
-                            '/assets/Images/ClothesBrand/LubumArt/KimomosOnGreen.webp',
-                            '/assets/Images/ClothesBrand/LubumArt/LubumArt_Fashion_01.webp',
-                            '/assets/Images/ClothesBrand/LubumArt/LubumArt_Fashion_02.webp',
-                            '/assets/Images/ClothesBrand/LubumArt/LubumArt_Fashion_03.webp',
-                            '/assets/Images/ClothesBrand/LubumArt/LubumArt_Fashion_04.webp',
+                            assetUrl('/assets/Images/ClothesBrand/LubumArt/KimomosOnGreen.webp'),
+                            assetUrl('/assets/Images/ClothesBrand/LubumArt/LubumArt_Fashion_01.webp'),
+                            assetUrl('/assets/Images/ClothesBrand/LubumArt/LubumArt_Fashion_02.webp'),
+                            assetUrl('/assets/Images/ClothesBrand/LubumArt/LubumArt_Fashion_03.webp'),
+                            assetUrl('/assets/Images/ClothesBrand/LubumArt/LubumArt_Fashion_04.webp'),
                         ].map((src, i) => (
                             <OptimizedImage key={i} src={src} alt={`LubumArt Fashion ${i + 1}`} height={400} aspectRatio={0.75} />
                         ))}
@@ -1201,10 +1201,10 @@ function App() {
                     </div>
                     <MarqueeText speed={150}>
                         {[
-                            '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Miroir mall building/1d7a217c-e700-4d61-ba7a-5e58cf6ba7b0.webp',
-                            '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Miroir mall building/353b252a-c4c5-46a2-acaf-efa2f26fdfb3.webp',
-                            '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Miroir mall building/3b315225-e613-4730-bc90-00c1cd0d79b7.webp',
-                            '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Miroir mall building/b3cbc484-7344-4a14-a234-294321989edf.webp',
+                            assetUrl('/assets/Images/FeaturedClientImmorose/Miroir Mall places/Miroir mall building/1d7a217c-e700-4d61-ba7a-5e58cf6ba7b0.webp'),
+                            assetUrl('/assets/Images/FeaturedClientImmorose/Miroir Mall places/Miroir mall building/353b252a-c4c5-46a2-acaf-efa2f26fdfb3.webp'),
+                            assetUrl('/assets/Images/FeaturedClientImmorose/Miroir Mall places/Miroir mall building/3b315225-e613-4730-bc90-00c1cd0d79b7.webp'),
+                            assetUrl('/assets/Images/FeaturedClientImmorose/Miroir Mall places/Miroir mall building/b3cbc484-7344-4a14-a234-294321989edf.webp'),
                         ].map((src, i) => (
                             <OptimizedImage key={i} src={src} alt={`Miroir Mall Building exterior ${i + 1}`} height={400} aspectRatio={1.5} />
                         ))}
@@ -1225,12 +1225,12 @@ function App() {
                     </div>
                     <MarqueeText speed={130}>
                         {[
-                            '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Le Sheesha Lounge/041b13da-67fe-4794-9de0-db80b07ee4a7.webp',
-                            '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Le Sheesha Lounge/860430e1-adee-4f30-8d5a-ccab93c0d60c.webp',
-                            '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Le Sheesha Lounge/d3daa198-6278-4dea-9032-11d0723c2eaf.webp',
-                            '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Le Sheesha Lounge/d79c908b-fe7f-415b-b432-08f9565b8f79.webp',
-                            '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Le Sheesha Lounge/e68e5b78-d404-419e-91de-a07685cd9bde.webp',
-                            '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Le Sheesha Lounge/f4f365c4-1201-436b-aa70-ecb801e7228c.webp',
+                            assetUrl('/assets/Images/FeaturedClientImmorose/Miroir Mall places/Le Sheesha Lounge/041b13da-67fe-4794-9de0-db80b07ee4a7.webp'),
+                            assetUrl('/assets/Images/FeaturedClientImmorose/Miroir Mall places/Le Sheesha Lounge/860430e1-adee-4f30-8d5a-ccab93c0d60c.webp'),
+                            assetUrl('/assets/Images/FeaturedClientImmorose/Miroir Mall places/Le Sheesha Lounge/d3daa198-6278-4dea-9032-11d0723c2eaf.webp'),
+                            assetUrl('/assets/Images/FeaturedClientImmorose/Miroir Mall places/Le Sheesha Lounge/d79c908b-fe7f-415b-b432-08f9565b8f79.webp'),
+                            assetUrl('/assets/Images/FeaturedClientImmorose/Miroir Mall places/Le Sheesha Lounge/e68e5b78-d404-419e-91de-a07685cd9bde.webp'),
+                            assetUrl('/assets/Images/FeaturedClientImmorose/Miroir Mall places/Le Sheesha Lounge/f4f365c4-1201-436b-aa70-ecb801e7228c.webp'),
                         ].map((src, i) => (
                             <OptimizedImage key={i} src={src} alt={`Le Sheesha Lounge interior ${i + 1}`} height={400} aspectRatio={1.5} />
                         ))}
@@ -1251,15 +1251,15 @@ function App() {
                     </div>
                     <MarqueeText speed={120}>
                         {[
-                            '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Banquet Hall/07c56606-be35-40c0-bd83-4dbdf6e6572e.webp',
-                            '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Banquet Hall/1f7727dc-2c12-4c62-9d5a-36a439eb2f22.webp',
-                            '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Banquet Hall/3f36cc37-7506-48ab-93a1-16e6482d9977 (1).webp',
-                            '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Banquet Hall/49ab5a60-efbd-4e8c-94a6-c8caa40274f7.webp',
-                            '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Banquet Hall/89334f91-150b-433d-a1f2-3db868fa306f (1).webp',
-                            '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Banquet Hall/9896306f-339f-4264-80ee-40b4620dc8a4.webp',
-                            '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Banquet Hall/99ef4ba4-58e8-48c7-8a50-b304c72c5307.webp',
-                            '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Banquet Hall/cba2fa3d-0b1e-48f8-a95c-90527609c0d3.webp',
-                            '/assets/Images/FeaturedClientImmorose/Miroir Mall places/Banquet Hall/f504de92-fda8-40d2-8f5e-2b4af3b81684.webp',
+                            assetUrl('/assets/Images/FeaturedClientImmorose/Miroir Mall places/Banquet Hall/07c56606-be35-40c0-bd83-4dbdf6e6572e.webp'),
+                            assetUrl('/assets/Images/FeaturedClientImmorose/Miroir Mall places/Banquet Hall/1f7727dc-2c12-4c62-9d5a-36a439eb2f22.webp'),
+                            assetUrl('/assets/Images/FeaturedClientImmorose/Miroir Mall places/Banquet Hall/3f36cc37-7506-48ab-93a1-16e6482d9977 (1).webp'),
+                            assetUrl('/assets/Images/FeaturedClientImmorose/Miroir Mall places/Banquet Hall/49ab5a60-efbd-4e8c-94a6-c8caa40274f7.webp'),
+                            assetUrl('/assets/Images/FeaturedClientImmorose/Miroir Mall places/Banquet Hall/89334f91-150b-433d-a1f2-3db868fa306f (1).webp'),
+                            assetUrl('/assets/Images/FeaturedClientImmorose/Miroir Mall places/Banquet Hall/9896306f-339f-4264-80ee-40b4620dc8a4.webp'),
+                            assetUrl('/assets/Images/FeaturedClientImmorose/Miroir Mall places/Banquet Hall/99ef4ba4-58e8-48c7-8a50-b304c72c5307.webp'),
+                            assetUrl('/assets/Images/FeaturedClientImmorose/Miroir Mall places/Banquet Hall/cba2fa3d-0b1e-48f8-a95c-90527609c0d3.webp'),
+                            assetUrl('/assets/Images/FeaturedClientImmorose/Miroir Mall places/Banquet Hall/f504de92-fda8-40d2-8f5e-2b4af3b81684.webp'),
                         ].map((src, i) => (
                             <OptimizedImage key={i} src={src} alt={`Banquet Hall interior ${i + 1}`} height={400} aspectRatio={1.5} />
                         ))}

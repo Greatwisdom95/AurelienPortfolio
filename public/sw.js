@@ -1,13 +1,13 @@
 // Service Worker for Aurelien Portfolio
-const CACHE_NAME = 'aurelien-portfolio-v3';
-const STATIC_CACHE = 'static-v3';
-const DYNAMIC_CACHE = 'dynamic-v3';
-const PRECACHE_CACHE = 'precache-v3';
+const CACHE_NAME = 'aurelien-portfolio-v4-github-pages-media';
+const STATIC_CACHE = 'static-v4';
+const DYNAMIC_CACHE = 'dynamic-v4';
+const PRECACHE_CACHE = 'precache-v4';
 
 // Assets to cache immediately
 const STATIC_ASSETS = [
-  '/',
-  '/index.html',
+  './',
+  './index.html',
 ];
 
 // Install event - cache static assets
