@@ -126,7 +126,7 @@
             to { transform: rotate(360deg); }
         }
     </style>
-  <script type="module" crossorigin src="./assets/index-oiaCvlvx.js"></script>
+  <script type="module" crossorigin src="./assets/index-CcaRO_6I.js"></script>
   <link rel="modulepreload" crossorigin href="./assets/vendor-react-wGySg1uH.js">
   <link rel="modulepreload" crossorigin href="./assets/vendor-gsap-Cy3i8ghA.js">
   <link rel="modulepreload" crossorigin href="./assets/vendor-motion-D1Q9_sWi.js">
@@ -150,18 +150,20 @@
                 document.getElementById('preloader').classList.add('loaded');
             }, 500);
             
-            // Force Service Worker update and clear old caches
+            // Register Service Worker from the current GitHub Pages subpath.
+            // Never use /sw.js here: on GitHub Pages that points to the account root,
+            // not /AurelienPortfolio/, and breaks cache/media loading.
             if ('serviceWorker' in navigator) {
-                // Clear all caches first to fix video loading issues
+                // Clear only known old cache versions; keep current media cache for speed.
                 caches.keys().then(function(names) {
                     names.forEach(function(name) {
-                        if (name.includes('-v2') || name.includes('-v1')) {
+                        if (name.includes('-v1') || name.includes('-v2') || name.includes('-v3')) {
                             caches.delete(name);
                         }
                     });
                 });
                 
-                navigator.serviceWorker.register('/sw.js')
+                navigator.serviceWorker.register('./sw.js')
                     .then(function(reg) {
                         console.log('Service Worker registered:', reg.scope);
                         // Force update check
